@@ -1,4 +1,5 @@
-﻿using UdemyAICourseNotes.Clients;
+﻿using Microsoft.Agents.AI;
+using UdemyAICourseNotes.Clients;
 using UdemyAICourseNotes.Enums;
 using static UdemyAICourseNotes.Helpers.Output;
 
@@ -20,8 +21,10 @@ internal class _2_Agent_Sessions : BaseSample
 
         var agentWithSession = AgentClientFactory
              .GetAgent(Enums.Clients.Github, Models.OpenAI.GPT_4o_MINI);
-        var session = await agentWithSession.CreateSessionAsync(); 
+        var session = await agentWithSession.CreateSessionAsync();
 
+        var historyProvider = agentWithSession.GetService<InMemoryChatHistoryProvider>();
+        
         while (true)
         {
             Red("> ");
@@ -42,6 +45,21 @@ internal class _2_Agent_Sessions : BaseSample
 
             Blue("Agent with session: > ");
             Blue(responseWithSession.ToString());
+
+            Console.WriteLine();
+            GrayLine("Session state bag object: "); 
+            GrayLine("Session StateBag info for second agent (with session): "); 
+            GrayLine($"State bag count: {session.StateBag.Count}");
+            GrayLine($"State bag content: {session.StateBag.Serialize()}");
+
+            Console.WriteLine();
+            MagentaLine("Session history provider messages:");
+            var messagesForSession = historyProvider.GetMessages(session) ?? [];
+            MagentaLine($"Number of messages in session: {messagesForSession.Count}");
+            foreach (var message in messagesForSession)
+            {
+                MagentaLine(message.ToString()); 
+            }
 
             Separator();
         }

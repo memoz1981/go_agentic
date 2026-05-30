@@ -22,6 +22,7 @@ Using github models and OpenAI model "gpt-4o-mini".
 
 ### _2_Agent_Sessions
 
+Sessions can be added to agents - this ensures that the context is kept between the prompts. 
 Two agents are created - one with session and other without: 
 
 ```
@@ -36,4 +37,8 @@ Agent without session: > I don't have access to personal information about users
 Agent with session: > Your name is Mehdi. How can I help you further?
 ------------------------------------------------------------------------------------------------------------------------
 ```
+
+The history is stored in StateBag and can be retrieved either by: 
+- directly accessing the StateBag
+- OR getting the service `InMemoryChatHistoryProvider` for the agent and then getting the history for the session. 
 

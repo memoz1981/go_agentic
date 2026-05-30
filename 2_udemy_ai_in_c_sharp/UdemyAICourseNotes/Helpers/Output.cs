@@ -8,9 +8,19 @@ public static class Output
         Write(message, ConsoleColor.Red);
     }
 
+    public static void RedLine(string message)
+    {
+        WriteLine(message, ConsoleColor.Red);
+    }
+
     public static void Green(string message)
     {
         Write(message, ConsoleColor.Green);
+    }
+
+    public static void GreenLine(string message)
+    {
+        WriteLine(message, ConsoleColor.Green);
     }
 
     public static void Yellow(string message)
@@ -18,9 +28,19 @@ public static class Output
         Write(message, ConsoleColor.Yellow);
     }
 
+    public static void YellowLine(string message)
+    {
+        WriteLine(message, ConsoleColor.Yellow);
+    }
+
     public static void Gray(string message)
     {
         Write(message, ConsoleColor.DarkGray);
+    }
+
+    public static void GrayLine(string message)
+    {
+        WriteLine(message, ConsoleColor.DarkGray);
     }
 
     public static void Blue(string message)
@@ -28,7 +48,17 @@ public static class Output
         Write(message, ConsoleColor.Blue);
     }
 
+    public static void BlueLine(string message)
+    {
+        WriteLine(message, ConsoleColor.Blue);
+    }
+
     public static void Magenta(string message)
+    {
+        Write(message, ConsoleColor.DarkMagenta);
+    }
+
+    public static void MagentaLine(string message)
     {
         WriteLine(message, ConsoleColor.DarkMagenta);
     }
