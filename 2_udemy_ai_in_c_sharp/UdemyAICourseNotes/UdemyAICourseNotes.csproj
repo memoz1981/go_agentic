@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <UserSecretsId>8a52705c-fd5a-4a68-a8c0-143af35ed50b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Tools\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.8.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.16" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.16" />
+  </ItemGroup>
+
+</Project>
