@@ -50,5 +50,12 @@ Demonstrates the streaming output - raw output is good enough for most of the ap
 - Early termination
 - Code generation
 
+### _4_Token_Usage
 
+Comparison of the token usage for the agents with and without the sessions. Without the session it's almost same for similar prompts. For the ones with session, context always adds up resulting in more input tokens each time, output token is not impacted. (but maybe under some under conditions this might happen)
+
+Main types of the tokens: 
+- Input
+- Output
+- Reasoning
 
