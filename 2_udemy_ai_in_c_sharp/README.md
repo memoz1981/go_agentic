@@ -24,7 +24,8 @@ Using github models and OpenAI model "gpt-4o-mini".
 
 Two agents are created - one with session and other without: 
 
-```> my name is Mehdi
+```
+> my name is Mehdi
 
 Agent without session: > Nice to meet you, Mehdi! How can I assist you today?
 Agent with session: > Hello Mehdi! How can I assist you today?
@@ -33,5 +34,6 @@ Agent with session: > Hello Mehdi! How can I assist you today?
 
 Agent without session: > I don't have access to personal information about users unless you provide it. Please let me know your name if you want me to address you by it!
 Agent with session: > Your name is Mehdi. How can I help you further?
-------------------------------------------------------------------------------------------------------------------------```
+------------------------------------------------------------------------------------------------------------------------
+```
 
