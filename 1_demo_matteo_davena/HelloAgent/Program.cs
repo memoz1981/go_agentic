@@ -54,7 +54,6 @@ agent.PrintAgent();
 while (true)
 {
     Console.Write("Write a question: > ");
-    
 
     var input = Console.ReadLine();
 

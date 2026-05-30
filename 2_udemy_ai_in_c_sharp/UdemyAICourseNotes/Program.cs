@@ -4,9 +4,10 @@ using static UdemyAICourseNotes.Helpers.Output;
 var sample1 = new _1_Basic_Chat_Client();
 var sample2 = new _2_Agent_Sessions();
 var sample3 = new _3_Normal_Vs_Streaming();
-var sample4 = new _4_Token_Usage(); 
+var sample4 = new _4_Token_Usage();
+var sample5 = new _5_Creating_Tools(); 
 
-BaseSample[] samples = [ sample1, sample2, sample3, sample4 ];
+BaseSample[] samples = [ sample1, sample2, sample3, sample4, sample5 ];
 
 Red("Type the index of the sample to continue:");
 Console.WriteLine();

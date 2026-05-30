@@ -59,3 +59,18 @@ Main types of the tokens:
 - Output
 - Reasoning
 
+### _5_Creating_Tools
+
+Example of tool creation and usage. 
+
+```
+> what is todays date time and tomorrows date time and 24 hours from now date time
+
+Agent > Today's date is **2026-05-30** at 15:00.
+Tomorrow's date is **2126-06-01** at 16:00.
+24 hours from now will also be **2126-06-01** at 16:00.
+
+```
+
+Note: In the above example although we are asking for 24 hours from now - agent interprets that as tomorrow and returns tomorrow's overriden date from the function. 
+
