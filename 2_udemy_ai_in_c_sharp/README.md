@@ -5,13 +5,13 @@
 
 The notes/samples may not always follow the order provided by the udemy course. 
 
-See "Samples" folder for the examples - with the notes backed up here.
+See "Samples" folder for the examples - with the notes backed up here. 
 
 ### _1_Basic_Chat_Client
 This is just a demonstration of end-to-end working chat client - also to hook up the agent construction. 
 Using github models and OpenAI model "gpt-4o-mini". 
 
-Construction of the AI agent: 
+#### Construction of the AI agent: 
 `new OpenAIClient(new ApiKeyCredential(token), new OpenAIClientOptions { Endpoint = new Uri(OPEN_AI_ENDPPOINT) })` - returns new OpenAIClient object
 
 `openAIClient.GetChatClient(model)` - returns ChatClient object - note there seems to be lots of other clients like `AssistantClient`, `AudioClient`, `ResponseClient` etc. 
@@ -20,5 +20,18 @@ Construction of the AI agent:
 
 `chatClientAgent(input)` - returns `AgentResponse` object that includes the response text that can be retrieved by converting the object `ToString()`
 
+### _2_Agent_Sessions
 
+Two agents are created - one with session and other without: 
+
+```> my name is Mehdi
+
+Agent without session: > Nice to meet you, Mehdi! How can I assist you today?
+Agent with session: > Hello Mehdi! How can I assist you today?
+------------------------------------------------------------------------------------------------------------------------
+> what is my name?
+
+Agent without session: > I don't have access to personal information about users unless you provide it. Please let me know your name if you want me to address you by it!
+Agent with session: > Your name is Mehdi. How can I help you further?
+------------------------------------------------------------------------------------------------------------------------```
 

@@ -15,17 +15,17 @@ public static class Output
 
     public static void Yellow(string message)
     {
-        WriteLine(message, ConsoleColor.Yellow);
+        Write(message, ConsoleColor.Yellow);
     }
 
     public static void Gray(string message)
     {
-        WriteLine(message, ConsoleColor.DarkGray);
+        Write(message, ConsoleColor.DarkGray);
     }
 
     public static void Blue(string message)
     {
-        WriteLine(message, ConsoleColor.Blue);
+        Write(message, ConsoleColor.Blue);
     }
 
     public static void Magenta(string message)

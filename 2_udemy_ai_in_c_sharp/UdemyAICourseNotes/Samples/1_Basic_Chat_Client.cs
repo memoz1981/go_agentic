@@ -6,9 +6,16 @@ namespace UdemyAICourseNotes.Samples;
 
 internal class _1_Basic_Chat_Client : BaseSample
 {
-    private const string EXIT = "exit"; 
+    private const string EXIT = "exit";
+
+    public override string Description => "First demo model showing how chat client works."; 
+
     public override async Task RunAsync()
     {
+        Gray($"Running the sample for {Description}");
+        Console.WriteLine();
+        Console.WriteLine();
+
         var agent = AgentClientFactory
             .GetAgent(Enums.Clients.Github, Models.OpenAI.GPT_4o_MINI);
 
