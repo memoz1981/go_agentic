@@ -21,7 +21,6 @@ internal class _1_Basic_Chat_Client : BaseSample
             if (string.Equals(input, EXIT, StringComparison.InvariantCultureIgnoreCase))
                 break;
 
-
             Console.WriteLine();
             Green("Agent > ");
 
