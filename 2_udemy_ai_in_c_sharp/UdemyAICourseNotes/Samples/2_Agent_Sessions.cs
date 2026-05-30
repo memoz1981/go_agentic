@@ -7,7 +7,6 @@ namespace UdemyAICourseNotes.Samples;
 
 internal class _2_Agent_Sessions : BaseSample
 {
-    private const string EXIT = "exit";
     public override string Description => "Comparison of agents with or without sessions."; 
 
     public override async Task RunAsync()

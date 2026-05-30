@@ -2,11 +2,20 @@
 using UdemyAICourseNotes.Enums;
 using static UdemyAICourseNotes.Helpers.Output;
 
-namespace UdemyAICourseNotes.Samples;
+namespace UdemyAICourseNotes.Samples; 
 
-internal class _1_Basic_Chat_Client : BaseSample
+internal class _3_Normal_Vs_Streaming : BaseSample
 {
-    public override string Description => "First demo model showing how chat client works."; 
+    public override string Description => "Normal vs. streaming output.";
+    private static readonly ConsoleColor[] Colors = 
+        [
+            ConsoleColor.Red,
+            ConsoleColor.Green, 
+            ConsoleColor.Blue,
+            ConsoleColor.Yellow, 
+            ConsoleColor.White,
+            ConsoleColor.Magenta,
+        ];
 
     public override async Task RunAsync()
     {
@@ -29,9 +38,14 @@ internal class _1_Basic_Chat_Client : BaseSample
             Console.WriteLine();
             Green("Agent > ");
 
-            var response = await agent.RunAsync(input);
+            var responses = agent.RunStreamingAsync(input);
+            int colorIndex = 0; 
 
-            Green(response.ToString());
+            await foreach (var response in responses)
+            {
+                Write(response.ToString(), Colors[colorIndex%Colors.Length]);
+                colorIndex++; 
+            }
 
             Separator();
         }

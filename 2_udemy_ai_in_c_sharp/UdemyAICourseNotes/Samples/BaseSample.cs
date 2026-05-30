@@ -3,5 +3,6 @@
 internal abstract class BaseSample
 {
     public abstract string Description { get; }
-    public abstract Task RunAsync(); 
+    public abstract Task RunAsync();
+    protected const string EXIT = "exit";
 }

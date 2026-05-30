@@ -92,7 +92,7 @@ public static class Output
         }
     }
 
-    private static void Write(string text, ConsoleColor color)
+    public static void Write(string text, ConsoleColor color)
     {
         ConsoleColor orgColor = Console.ForegroundColor;
         try

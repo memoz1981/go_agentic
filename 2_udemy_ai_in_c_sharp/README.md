@@ -42,3 +42,13 @@ The history is stored in StateBag and can be retrieved either by:
 - directly accessing the StateBag
 - OR getting the service `InMemoryChatHistoryProvider` for the agent and then getting the history for the session. 
 
+### _3_Normal_Vs_Streaming
+
+Demonstrates the streaming output - raw output is good enough for most of the applications. Some examples where we may use streaming output: 
+- Long responses
+- Chat UX
+- Early termination
+- Code generation
+
+
+
