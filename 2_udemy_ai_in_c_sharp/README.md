@@ -87,3 +87,25 @@ Agent without tools> .NET 9
 Agent with tools> .NET 10
 ```
 
+###_7_Tools_Middleware
+Added a tools middleware to log all tool calls with arguments also that would override the call responses for certain functions. 
+
+It's clear that the middleware has a presedence over the tools. 
+
+```
+Running the sample for Added Tools Middleware
+
+> what is today's date
+
+- Tool Call: 'GetTodaysDate'
+Agent > Today's date is May 31, 2026.
+
+------------------------------------------------------------------------------------------------------------------------
+
+> what is tomorrow's date
+
+- Tool Call: 'tomorrow'
+Agent > Tomorrow's date is January 1, 2030.
+
+```
+
