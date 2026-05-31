@@ -74,3 +74,16 @@ Tomorrow's date is **2126-06-01** at 16:00.
 
 Note: In the above example although we are asking for 24 hours from now - agent interprets that as tomorrow and returns tomorrow's overriden date from the function. 
 
+### _6_Mcp_Tools
+MCP - Model Context Protocol - the tools that are available online or offline that are like ready to use tools. 
+
+In the example I used Microsoft Learn MCP Tool - since github model credits were not sufficient switched to using OpenAI client. 
+
+```
+> What is the latest version of .Net ? Write just the version as answer.
+
+Agent without tools> .NET 9
+
+Agent with tools> .NET 10
+```
+

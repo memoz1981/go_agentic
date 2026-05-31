@@ -2,5 +2,5 @@
 
 internal enum Clients
 {
-    Github
+    Github, OpenAI
 }

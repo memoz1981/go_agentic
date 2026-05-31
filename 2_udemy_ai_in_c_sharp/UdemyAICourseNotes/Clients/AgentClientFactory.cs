@@ -35,6 +35,7 @@ internal class AgentClientFactory
         return client switch
         {
             Enums.Clients.Github => GetGithubClient(model, name, instructions, tools),
+            Enums.Clients.OpenAI => GetOpenAIClient(model, name, instructions, tools),
             _ => throw new ArgumentException(nameof(client))
         };
     }
@@ -54,5 +55,17 @@ internal class AgentClientFactory
                 name: name, 
                 instructions: instructions, 
                 tools: tools); 
+    }
+
+    private static AIAgent GetOpenAIClient(string model, string name, string instructions, IList<AITool> tools = null)
+    {
+        var openAIModel = SecretsManager.GetOpenAIModel();
+
+        return new OpenAIClient(openAIModel.ApiKey)
+            .GetChatClient(model)
+            .AsAIAgent(
+                name: name,
+                instructions: instructions,
+                tools: tools);
     }
 }
