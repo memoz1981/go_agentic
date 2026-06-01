@@ -87,7 +87,7 @@ Agent without tools> .NET 9
 Agent with tools> .NET 10
 ```
 
-###_7_Tools_Middleware
+### _7_Tools_Middleware
 Added a tools middleware to log all tool calls with arguments also that would override the call responses for certain functions. 
 
 It's clear that the middleware has a presedence over the tools. 
@@ -109,3 +109,23 @@ Agent > Tomorrow's date is January 1, 2030.
 
 ```
 
+### _8_Agents_As_Tools
+2 Agents are added:
+- dateTimeAgent - this answers date related queries
+- agent - main agent - has following tools: 
+a) dateTimeAgent as a tool
+b) weather tool 
+
+**Important Note** As per Microsoft documentation, agents can be used as tools calling agent.AsAIFunction() - but in my case couldn't make it running this way - constantly was getting interface serialization issue - suspect this was due to using AIAgent interface (didnt' think it's an interface) rather than using ChatClientAgent etc. structs. 
+So instead I used agent as a delegate - that did the job. 
+
+**Output**
+```
+> what will be the weather be like in 6 days from now?
+
+- Tool Call: 'dateTimeAgent' (Args: [input = 6 days from now]
+- Tool Call: 'GetNumberOfDaysFromNow' (Args: [numDays = 6]
+- Tool Call: 'getWeather' (Args: [date = 2026-06-07]
+Agent > The weather on June 7, 2026, is expected to be sunny with a temperature of 30°C and no wind.
+
+```

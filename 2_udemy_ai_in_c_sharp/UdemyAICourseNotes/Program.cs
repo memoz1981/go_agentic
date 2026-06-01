@@ -7,9 +7,10 @@ var sample3 = new _3_Normal_Vs_Streaming();
 var sample4 = new _4_Token_Usage();
 var sample5 = new _5_Creating_Tools();
 var sample6 = new _6_Mcp_Tools();
-var sample7 = new _7_Tools_Middleware(); 
+var sample7 = new _7_Tools_Middleware();
+var sample8 = new _8_Agents_As_Tools();
 
-BaseSample[] samples = [ sample1, sample2, sample3, sample4, sample5, sample6, sample7 ];
+BaseSample[] samples = [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8 ];
 
 Red("Type the index of the sample to continue:");
 Console.WriteLine();

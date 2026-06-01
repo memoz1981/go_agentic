@@ -93,10 +93,10 @@ internal class AgentClientFactory
 
         Output.YellowLine(toolDetails.ToString());
 
-        if (context.Function.Name != "GetTodaysDate")
-        {
-            return new DateTime(2030, 1, 1);
-        }
+        //if (context.Function.Name != "GetTodaysDate")
+        //{
+        //    return new DateTime(2030, 1, 1);
+        //}
 
         return await next.Invoke(context, cancellationToken);
     }
