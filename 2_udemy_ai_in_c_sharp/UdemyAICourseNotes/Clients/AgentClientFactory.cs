@@ -2,11 +2,14 @@
 using Microsoft.Extensions.AI;
 using OpenAI;
 using OpenAI.Chat;
+using OpenAI.Responses;
 using System.ClientModel;
 using System.Text;
+using UdemyAICourseNotes.Enums;
 using UdemyAICourseNotes.Helpers;
 
 namespace UdemyAICourseNotes.Clients;
+
 
 internal class AgentClientFactory
 {
@@ -32,12 +35,13 @@ internal class AgentClientFactory
         string name = DEFAULT_NAME,
         string instructions = DEFAULT_INSTRUCTIONS,
         IList<AITool> tools = null,
-        bool withMiddleware = false)
+        bool withMiddleware = false,
+        ClientType clientType = ClientType.Chat)
     {
         var agent = client switch
         {
-            Enums.Clients.Github => GetGithubClient(model, name, instructions, tools),
-            Enums.Clients.OpenAI => GetOpenAIClient(model, name, instructions, tools),
+            Enums.Clients.Github => GetGithubClient(model, name, instructions, tools, clientType),
+            Enums.Clients.OpenAI => GetOpenAIClient(model, name, instructions, tools, clientType),
             _ => throw new ArgumentException(nameof(client))
         };
 
@@ -52,33 +56,65 @@ internal class AgentClientFactory
                 .Build();
     }
 
-    private static AIAgent GetGithubClient(string model, string name, string instructions, IList <AITool> tools = null)
+    private static AIAgent GetGithubClient(string model, string name, string instructions, 
+        IList<AITool> tools, ClientType clientType)
     {
         var githubModel = SecretsManager.GetGithubModel();
-        
-        return new OpenAIClient(
-            new ApiKeyCredential(githubModel.Token),
-            new OpenAIClientOptions 
-            { 
-                Endpoint = new Uri(GITHUB_ENDPPOINT) 
-            })
-            .GetChatClient(model)
-            .AsAIAgent(
-                name: name, 
-                instructions: instructions, 
-                tools: tools); 
+
+        var openAIClient = new OpenAIClient(
+           new ApiKeyCredential(githubModel.Token),
+           new OpenAIClientOptions
+           {
+               Endpoint = new Uri(GITHUB_ENDPPOINT)
+           });
+
+#pragma warning disable OPENAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+        return clientType switch
+        {
+            ClientType.Chat => openAIClient
+                   .GetChatClient(model)
+                   .AsAIAgent(
+                       name: name,
+                       instructions: instructions,
+                       tools: tools),
+            ClientType.Response => openAIClient
+                   .GetResponsesClient()
+                   .AsAIAgent(
+                       name: name,
+                       model: model,
+                       instructions: instructions,
+                       tools: tools),
+            _ => throw new ArgumentException(nameof(clientType))
+        };
+#pragma warning restore OPENAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
     }
 
-    private static AIAgent GetOpenAIClient(string model, string name, string instructions, IList<AITool> tools = null)
+    private static AIAgent GetOpenAIClient(string model, string name, string instructions, 
+        IList<AITool> tools, ClientType clientType)
     {
         var openAIModel = SecretsManager.GetOpenAIModel();
 
-        return new OpenAIClient(openAIModel.ApiKey)
-            .GetChatClient(model)
-            .AsAIAgent(
-                name: name,
-                instructions: instructions,
-                tools: tools);
+        var openAIClient = new OpenAIClient(openAIModel.ApiKey);
+
+#pragma warning disable OPENAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+        return clientType switch
+        {
+            ClientType.Chat => openAIClient
+                   .GetChatClient(model)
+                   .AsAIAgent(
+                       name: name,
+                       instructions: instructions,
+                       tools: tools),
+            ClientType.Response => openAIClient
+                   .GetResponsesClient()
+                   .AsAIAgent(
+                       name: name,
+                       model: model,
+                       instructions: instructions,
+                       tools: tools),
+            _ => throw new ArgumentException(nameof(clientType))
+        };
+#pragma warning restore OPENAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
     }
 
     private static async ValueTask<object> Middleware(AIAgent agent, FunctionInvocationContext context,

@@ -8,5 +8,6 @@ public static class Models
         public const string GPT_5_4_NANO = "gpt-5.4-nano";
         public const string GPT_5_4_MINI = "gpt-5.4-mini";
         public const string GPT_5_4 = "gpt-5.4";
+        public const string GPT_4_1_NANO = "gpt-4.1-nano";
     }
 }

@@ -1,4 +1,5 @@
 ﻿using UdemyAICourseNotes.Samples;
+using UdemyAICourseNotes.Samples._10;
 using static UdemyAICourseNotes.Helpers.Output; 
 
 var sample1 = new _1_Basic_Chat_Client();
@@ -9,9 +10,13 @@ var sample5 = new _5_Creating_Tools();
 var sample6 = new _6_Mcp_Tools();
 var sample7 = new _7_Tools_Middleware();
 var sample8 = new _8_Agents_As_Tools();
-var sample9 = new _9_Agents_As_Tools_2(); 
+var sample9 = new _9_Agents_As_Tools_2();
 
-BaseSample[] samples = [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8, sample9 ];
+var sample10 = new _10_Web_Search_Tool(); 
+
+BaseSample[] samples = 
+    [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8, sample9,
+      sample10];
 
 Red("Type the index of the sample to continue:");
 Console.WriteLine();
@@ -19,7 +24,7 @@ Console.WriteLine();
 
 for (int i = 0; i < samples.Length; i++)
 {
-    Blue($"({i}) - {samples[i].Description}");
+    Blue($"({i+1}) - {samples[i].Description}");
     Console.WriteLine(); 
 }
 
@@ -27,13 +32,13 @@ Console.WriteLine();
 Gray("> "); 
 var result = Console.ReadLine();
 
-if (!int.TryParse(result, out var index) || index < 0 || index >= samples.Length)
+if (!int.TryParse(result, out var index) || index < 1 || index > samples.Length)
 {
     Red($"Selected option {result} is not valid.");
     return;
 }
 
-var sample = samples[index];
+var sample = samples[index-1];
 
 Separator(); 
 
