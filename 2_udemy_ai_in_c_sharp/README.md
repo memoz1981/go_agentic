@@ -129,3 +129,32 @@ So instead I used agent as a delegate - that did the job.
 Agent > The weather on June 7, 2026, is expected to be sunny with a temperature of 30°C and no wind.
 
 ```
+
+### _9_Agents_As_Tools_2
+2 Agents are added:
+- astronomyAgent - without any tools - uses OpenAI directly
+- mainAgent - uses astronomyAgent - uses OpenAI thru github models
+
+**Important Notes:** 
+- Any astronomy questions are routed to 'astronomyAgent' 
+- You can instruct the main agent not to use 'astronomyAgent'
+- Cought by content filtering - when asked which agent will be used: 
+
+**Output**
+```
+> what is solar eclipse?
+
+- Tool Call: 'astronomyAgent' (Args: [query = What is a solar eclipse?]
+Agent > A solar eclipse occurs ......
+
+------------------------------------------------------------------------------------------------------------------------
+
+> answer yourself without passing to 'astronomyAgent'. what is solar eclipse?
+
+Agent > A solar eclipse occurs ......
+
+------------------------------------------------------------------------------------------------------------------------
+
+> if I ask about solar eclipse will you answer yourself or pass to 'astronomyAgent'? just give answer to this question without answering about solar eclipse. -> "The response was filtered due to the prompt triggering Azure OpenAI's content management policy. Please modify your prompt and retry. To learn more about our content filtering policies please read our documentation: https://go.microsoft.com/fwlink/?linkid=2198766'"
+
+```

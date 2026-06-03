@@ -9,8 +9,9 @@ var sample5 = new _5_Creating_Tools();
 var sample6 = new _6_Mcp_Tools();
 var sample7 = new _7_Tools_Middleware();
 var sample8 = new _8_Agents_As_Tools();
+var sample9 = new _9_Agents_As_Tools_2(); 
 
-BaseSample[] samples = [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8 ];
+BaseSample[] samples = [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8, sample9 ];
 
 Red("Type the index of the sample to continue:");
 Console.WriteLine();
