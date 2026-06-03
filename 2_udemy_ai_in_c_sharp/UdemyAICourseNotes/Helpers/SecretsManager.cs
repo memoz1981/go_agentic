@@ -5,29 +5,19 @@ namespace UdemyAICourseNotes.Helpers;
 
 internal class SecretsManager
 {
-    private const string GITHUB_KEY = "github";
-    private const string OPEN_AI_KEY = "openAI";
+    private const string API_KEYS = "ApiKeys";
 
-    public static GithubModel GetGithubModel()
+    public static string GetApiKey(Enums.Clients client)
     {
         var configuration = (new ConfigurationBuilder().AddUserSecrets<SecretsManager>()).Build();
 
-        var githubModel = configuration.GetRequiredSection(GITHUB_KEY).Get<GithubModel>();
+        var apiKeys = configuration.GetRequiredSection(API_KEYS).Get<ApiKeys>();
 
-        ArgumentNullException.ThrowIfNullOrWhiteSpace(githubModel.ApiKey); 
-        ArgumentException.ThrowIfNullOrWhiteSpace(githubModel.Token);
-
-        return githubModel; 
-    }
-
-    public static OpenAIModel GetOpenAIModel()
-    {
-        var configuration = (new ConfigurationBuilder().AddUserSecrets<SecretsManager>()).Build();
-
-        var githubModel = configuration.GetRequiredSection(OPEN_AI_KEY).Get<OpenAIModel>();
-
-        ArgumentNullException.ThrowIfNullOrWhiteSpace(githubModel.ApiKey);
-
-        return githubModel;
+        return client switch
+        {
+            Enums.Clients.OpenAI => apiKeys.OpenAI,
+            Enums.Clients.Github => apiKeys.Github,
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }

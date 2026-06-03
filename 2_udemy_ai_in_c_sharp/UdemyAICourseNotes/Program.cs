@@ -25,9 +25,13 @@ Console.WriteLine();
 for (int i = 0; i < samples.Length; i++)
 {
     Blue($"({i+1}) - {samples[i].Description}");
-    Console.WriteLine(); 
-}
 
+    if ((i + 2) % 10 == 0)
+        Separator();
+    else
+        Console.WriteLine(); 
+}
+Separator();
 Console.WriteLine();
 Gray("> "); 
 var result = Console.ReadLine();

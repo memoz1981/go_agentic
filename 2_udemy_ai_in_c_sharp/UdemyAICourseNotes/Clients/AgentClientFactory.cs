@@ -59,10 +59,10 @@ internal class AgentClientFactory
     private static AIAgent GetGithubClient(string model, string name, string instructions, 
         IList<AITool> tools, ClientType clientType)
     {
-        var githubModel = SecretsManager.GetGithubModel();
+        var apiKey = SecretsManager.GetApiKey(Enums.Clients.Github);
 
         var openAIClient = new OpenAIClient(
-           new ApiKeyCredential(githubModel.Token),
+           new ApiKeyCredential(apiKey),
            new OpenAIClientOptions
            {
                Endpoint = new Uri(GITHUB_ENDPPOINT)
@@ -92,9 +92,9 @@ internal class AgentClientFactory
     private static AIAgent GetOpenAIClient(string model, string name, string instructions, 
         IList<AITool> tools, ClientType clientType)
     {
-        var openAIModel = SecretsManager.GetOpenAIModel();
+        var apiKey = SecretsManager.GetApiKey(Enums.Clients.OpenAI);
 
-        var openAIClient = new OpenAIClient(openAIModel.ApiKey);
+        var openAIClient = new OpenAIClient(apiKey);
 
 #pragma warning disable OPENAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
         return clientType switch
