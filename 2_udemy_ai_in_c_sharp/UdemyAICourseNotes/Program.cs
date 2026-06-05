@@ -12,11 +12,12 @@ var sample7 = new _7_Tools_Middleware();
 var sample8 = new _8_Agents_As_Tools();
 var sample9 = new _9_Agents_As_Tools_2();
 
-var sample10 = new _10_Web_Search_Tool(); 
+var sample10 = new _10_Web_Search_Tool();
+var sample11 = new _11_Code_Interpreter_Tool(); 
 
 BaseSample[] samples = 
     [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8, sample9,
-      sample10];
+      sample10, sample11];
 
 Red("Type the index of the sample to continue:");
 Console.WriteLine();
