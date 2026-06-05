@@ -25,3 +25,18 @@ Notes:
 Prompt: give me a pie chart representing countries by population - show the date of the statistics on the top
 ```
 
+### Sample 12 - Structured Output
+Example where we provide a format on which we want the data back, and LLM happy provides data back in that format. 
+
+**Important Note - The weight of the agent instructions vs user input vs Description attribute**
+Instructions > User instructions
+Instructions > Description attribute
+User Instructions ??? Description attribute (in the training example attribute took over but it's unknown 50/50). 
+
+```
+Structured output
+0 - The Shawshank Redemption (1994, by Frank Darabont, YearOfRelease, imdb: 9.3)
+1 - The Godfather (1972, by Francis Ford Coppola, YearOfRelease, imdb: 9.2)
+2 - The Dark Knight (2008, by Christopher Nolan, YearOfRelease, imdb: 9)
+
+```
