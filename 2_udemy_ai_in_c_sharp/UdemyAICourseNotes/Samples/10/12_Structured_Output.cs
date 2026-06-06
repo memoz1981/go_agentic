@@ -14,7 +14,7 @@ internal class _12_Structured_Output : BaseSample
         Console.WriteLine();
         Console.WriteLine();
 
-        //astronomy agent
+        //IMDB Agent
         var agent = AgentClientFactory
              .GetAgent(
              client: Enums.Clients.Github,

@@ -4,6 +4,7 @@ using OpenAI;
 using OpenAI.Chat;
 using OpenAI.Responses;
 using System.ClientModel;
+using System.ClientModel.Primitives;
 using System.Text;
 using UdemyAICourseNotes.Enums;
 using UdemyAICourseNotes.Helpers;
@@ -43,18 +44,24 @@ internal class AgentClientFactory
     }
 
     public static OpenAIClient GetClient(
-        Enums.Clients client)
+        Enums.Clients client,
+        HttpClient httpClient = null)
     {
+        var options = (client, httpClient) switch
+        {
+            (Enums.Clients.Github, null) => new OpenAIClientOptions() { Endpoint = new Uri(GITHUB_ENDPPOINT) },
+            (Enums.Clients.Github, _) => new OpenAIClientOptions() { Endpoint = new Uri(GITHUB_ENDPPOINT), Transport = new HttpClientPipelineTransport(httpClient) },
+            (Enums.Clients.OpenAI, null) => new OpenAIClientOptions(),
+            (Enums.Clients.OpenAI, _) => new OpenAIClientOptions() { Transport = new HttpClientPipelineTransport(httpClient) },
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
         if (client == Enums.Clients.Github)
         {
             var apiKey = SecretsManager.GetApiKey(Enums.Clients.Github);
 
             return new OpenAIClient(
-               new ApiKeyCredential(apiKey),
-               new OpenAIClientOptions
-               {
-                   Endpoint = new Uri(GITHUB_ENDPPOINT)
-               });
+               new ApiKeyCredential(apiKey), options);
         }
 
         if (client == Enums.Clients.OpenAI)
@@ -62,7 +69,7 @@ internal class AgentClientFactory
             var apiKey = SecretsManager.GetApiKey(Enums.Clients.OpenAI);
 
             return new OpenAIClient(
-               new ApiKeyCredential(apiKey));
+               new ApiKeyCredential(apiKey), options); 
         }
 
         throw new ArgumentOutOfRangeException(); 

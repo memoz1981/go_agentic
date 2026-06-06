@@ -4,8 +4,7 @@ using OpenAI;
 using OpenAI.Responses;
 using UdemyAICourseNotes.Clients;
 using UdemyAICourseNotes.Enums;
-using UdemyAICourseNotes.Tools;
-using static UdemyAICourseNotes.Helpers.Output; 
+using static UdemyAICourseNotes.Helpers.Output;
 
 namespace UdemyAICourseNotes.Samples._10; 
 
