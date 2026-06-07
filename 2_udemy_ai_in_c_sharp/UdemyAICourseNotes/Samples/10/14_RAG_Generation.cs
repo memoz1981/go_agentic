@@ -2,8 +2,7 @@
 using UdemyAICourseNotes.Clients;
 using UdemyAICourseNotes.Enums;
 using UdemyAICourseNotes.Extensions;
-using UdemyAICourseNotes.Tools;
-using static UdemyAICourseNotes.Helpers.Output; 
+using static UdemyAICourseNotes.Helpers.Output;
 
 namespace UdemyAICourseNotes.Samples._10;
 
@@ -17,14 +16,14 @@ internal class _14_RAG_Generation : BaseSample
         Console.WriteLine();
         Console.WriteLine();
 
-        var client = AgentClientFactory.GetClient(Enums.Clients.Github);
+        var client = AgentClientFactory.GetClient(Enums.Clients.OpenAI);
         var embeddingAgent = AgentClientFactory.GetEmbeddingGenerator(client, 
-            Models.OpenAIEmbedding.SMALL_3); 
+            Models.OpenAIEmbedding.LARGE_3); 
 
         var mainAgent = AgentClientFactory
              .GetAgent(
              openAIClient: client,
-             model: Models.OpenAI.GPT_4o_MINI,
+             model: Models.OpenAI.GPT_5_4,
              name: "agent",
              withMiddleware: true,
              clientType: ClientType.Chat);

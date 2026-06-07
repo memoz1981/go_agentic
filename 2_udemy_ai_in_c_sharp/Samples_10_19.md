@@ -100,11 +100,14 @@ The finish reason is now stop, denoting the call is complete:
 ### RAG - Generation 
 - Used an Open AI generation model to generate vectors based on agent input/ouput. 
 
-**Important Notes:**
+**Important Notes: (when using text-embedding-3-small embedding model)**
 - 2 methods resulted in slightly different vectors
 - Calling generate multiple times resulted in slightly different vectors
 - Overall this is not perfectly repeatable
 
+**Important Note:** When using large model (text-embedding-3-large) - Generated outputs are consistent... 
+
+Output for small model 
 ```
 Embedding data dimension: 1536 - printing top 10 elements
 -0.0043640137,-0.046691895,-0.010047913,-0.014221191,-0.026382446,-0.019714355,0.0055656433,0.05883789,-0.0057373047,-0.039611816
@@ -126,4 +129,29 @@ Vectors had different elements at index 0 as below:
 Calling generate async for output 10 times and check if all same?
 Vectors had different elements at index 0 as below:
 0.007534027,0.0075149536,0.007408142
+```
+
+Output for large model: 
+```
+Embedding data dimension: 3072 - printing top 10 elements
+-0.05218506,-0.008628845,-0.0042762756,0.014205933,0.01574707,0.0085372925,0.0099487305,0.064697266,-0.010307312,0.06008911
+
+Embedding data dimension: 3072 - printing top 10 elements
+-0.05218506,-0.008628845,-0.0042762756,0.014205933,0.01574707,0.0085372925,0.0099487305,0.064697266,-0.010307312,0.06008911
+
+Generated input data is same? True
+
+Agent > Hi there! How can I help?
+Embedding data dimension: 3072 - printing top 10 elements
+-0.05218506,-0.008628845,-0.0042762756,0.014205933,0.01574707,0.0085372925,0.0099487305,0.064697266,-0.010307312,0.06008911
+
+Embedding data dimension: 3072 - printing top 10 elements
+-0.05218506,-0.008628845,-0.0042762756,0.014205933,0.01574707,0.0085372925,0.0099487305,0.064697266,-0.010307312,0.06008911
+
+Generated output data is same? True
+Calling generate async for input 10 times and check if all same?
+10 vectors same
+
+Calling generate async for output 10 times and check if all same?
+10 vectors same
 ```
