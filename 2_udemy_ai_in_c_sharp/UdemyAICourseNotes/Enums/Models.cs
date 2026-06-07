@@ -10,4 +10,10 @@ public static class Models
         public const string GPT_5_4 = "gpt-5.4";
         public const string GPT_4_1_NANO = "gpt-4.1-nano";
     }
+
+    public static class OpenAIEmbedding
+    {
+        public const string SMALL_3 = "text-embedding-3-small";
+        public const string LARGE_3 = "text-embedding-3-large";
+    }
 }

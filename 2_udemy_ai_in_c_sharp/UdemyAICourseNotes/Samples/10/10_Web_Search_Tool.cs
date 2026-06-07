@@ -16,7 +16,6 @@ internal class _10_Web_Search_Tool : BaseSample
         Console.WriteLine();
         Console.WriteLine();
 
-        //astronomy agent
         var agent = AgentClientFactory
              .GetAgent(
              client: Enums.Clients.OpenAI,

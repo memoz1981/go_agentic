@@ -110,6 +110,12 @@ internal class AgentClientFactory
                 .Build();
     }
 
+    public static IEmbeddingGenerator<string, Embedding<float>> GetEmbeddingGenerator(
+        OpenAIClient client, string model)
+        => client
+            .GetEmbeddingClient(model)
+            .AsIEmbeddingGenerator();
+
     private static async ValueTask<object> Middleware(AIAgent agent, FunctionInvocationContext context,
         Func<FunctionInvocationContext, CancellationToken, ValueTask<object>> next, CancellationToken cancellationToken)
     {
