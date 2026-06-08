@@ -8,7 +8,7 @@ namespace UdemyAICourseNotes.Samples._10;
 
 internal class _14_RAG_Generation : BaseSample
 {
-    public override string Description => "RAG (Retrieval-Augmented Generation)";
+    public override string Description => "RAG (Retrieval-Augmented Generation) - Generation";
 
     public override async Task RunAsync()
     {
