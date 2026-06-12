@@ -263,3 +263,6 @@ LLM (Byte array): > 1. Rxh7! Kxh7 ...
 LLM (Byte array): > I don't have the attached file here. ...
 
 ```
+
+### Sample 19 - EMPTY - just a placeholder sample (to start new at 20x)
+- Asked GPT 5.4 to draw empty - not good
