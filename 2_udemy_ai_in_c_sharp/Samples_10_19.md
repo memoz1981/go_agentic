@@ -97,7 +97,7 @@ The finish reason is now stop, denoting the call is complete:
 - message.content is populated only on last call response. 
 - finish_reason - returning tool_calls denotes follow up tool call, and stop denotes request is completed. 
 
-### RAG - Generation 
+### Sample 14 - RAG - Generation 
 - Used an Open AI generation model to generate vectors based on agent input/ouput. 
 
 **Important Notes: (when using text-embedding-3-small embedding model)**
@@ -154,4 +154,34 @@ Calling generate async for input 10 times and check if all same?
 
 Calling generate async for output 10 times and check if all same?
 10 vectors same
+```
+
+### Sample 15 - RAG Sample
+- Created vector DB
+- Searched vector DB based on provided text
+- Provided top N results to LLM 
+- LLM returns the results
+
+**Note:**
+- For some reason - all the vectors return the same score - HOLD - need to investigate further
+Note that the SQLITE db can be explored using sqlite3 command: 
+```
+PS C:\Users\mzeynalov\AppData\Local\Temp> sqlite3
+SQLite version 3.44.2 2023-11-24 11:41:44 (UTF-16 console I/O)
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.
+sqlite> .open sample15_sqlite.db
+sqlite> .tables
+office                      vec_office_info
+vec_office                  vec_office_rowids
+vec_office_chunks           vec_office_vector_chunks00
+sqlite> select * from office;
+The WIFI password at office is '12345678'|A7942236-A27E-473F-8E53-CFF8EBDB94AC
+There are 10 men and 20 women working in our office|CCB55F01-8118-491C-B27B-CD96DD80CBDF
+Our office opens at 8 am and closes at 10 pm|95503DD2-BE6A-41E8-BA01-0DFE458ED919
+Our office is located in the city center in Neftchilar avenue|AAEC7620-E787-49F9-AA72-74B862E8940E
+Our internet connection uses fiber optic internet|B7A92D09-7878-42C4-A084-3A0DA2D5B42C
+Cat's eyes are green...|361B9A77-A8EF-4F3F-83F7-AEED289ACD62
+
 ```
