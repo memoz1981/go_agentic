@@ -243,3 +243,23 @@ Its population is **about 68 million people** (recent estimate).
 Token Usage: input: 83, output: 134, reasoning: 102
 
 ```
+
+### Sample 18 - Multi-modal input
+- By multi-modal input files (pdf/image etc.) is supported
+- Seems that OpenAI supports only pdf/image - for text file - it's best to to just paste the file contents to input
+- Interestingly OpenAI couldn't solve this chess puzzle :) 
+
+```
+> Passed URI to LLM to solve chess puzzle: https://chessify.me/media/uploads/dubov-sarin.jpg
+LLM (URI): > 1. Rxh7! Kxh7 ... (how can king take supported piece ?:)
+
+> Passed base64 string to LLM to solve chess puzzle: https://chessify.me/media/uploads/dubov-sarin.jpg
+LLM (Base 64 string): > 1. Rxh7! Kxh7 ...
+
+> Passed byteArray to LLM to solve chess puzzle: https://chessify.me/media/uploads/dubov-sarin.jpg
+LLM (Byte array): > 1. Rxh7! Kxh7 ...
+
+> Passed current C# class file:
+LLM (Byte array): > I don't have the attached file here. ...
+
+```

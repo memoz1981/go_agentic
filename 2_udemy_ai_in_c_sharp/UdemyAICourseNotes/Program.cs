@@ -19,11 +19,12 @@ var sample13 = new _13_LLM_Call_Lifecycle();
 var sample14 = new _14_RAG_Generation();
 var sample15 = new _15_RAG_VectorStore();
 var sample16 = new _16_RAG_As_A_Tool();
-var sample17 = new _17_Reasoning(); 
+var sample17 = new _17_Reasoning();
+var sample18 = new _18_Multi_Modal(); 
 
 BaseSample[] samples = 
     [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8, sample9,
-      sample10, sample11, sample12, sample13, sample14, sample15, sample16, sample17];
+      sample10, sample11, sample12, sample13, sample14, sample15, sample16, sample17, sample18];
 
 Red("Type the index of the sample to continue:");
 Console.WriteLine();
