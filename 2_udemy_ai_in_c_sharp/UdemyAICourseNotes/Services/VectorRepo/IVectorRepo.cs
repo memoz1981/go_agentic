@@ -2,7 +2,7 @@
 
 namespace UdemyAICourseNotes.Services.VectorRepo; 
 
-internal interface IVectorRepo<T> where T : BaseVector
+internal interface IVectorRepo<T> : IDisposable where T : BaseVector
 {
     VectorStore VectorStore { get; }
     Task<VectorStoreCollection<Guid, T>> GetCollection(string tableName);

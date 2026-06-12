@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.AI;
 using Microsoft.Extensions.VectorData;
 using Microsoft.SemanticKernel.Connectors.SqliteVec;
-using System.Threading.Tasks;
 
 namespace UdemyAICourseNotes.Services.VectorRepo;
 
@@ -71,5 +70,10 @@ internal class SqlLiteVectorRepo<T> : IVectorRepo<T> where T : BaseVector
     public IAsyncEnumerable<VectorSearchResult<T>> Search(
         VectorStoreCollection<Guid, T> vectorStoreCollection, 
         string input)
-        => vectorStoreCollection.SearchAsync(input, 10); 
+        => vectorStoreCollection.SearchAsync(input, 10);
+
+    public void Dispose()
+    {
+        VectorStore?.Dispose(); 
+    }
 }

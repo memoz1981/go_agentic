@@ -185,3 +185,36 @@ Our internet connection uses fiber optic internet|B7A92D09-7878-42C4-A084-3A0DA2
 Cat's eyes are green...|361B9A77-A8EF-4F3F-83F7-AEED289ACD62
 
 ```
+
+### Sample 16 - RAG as a tool
+- Moved same RAG to a tool used by the main agent
+- Didn't update the sqlite database - it assumes that sample 15 is ran first to populate it
+- Properly disposed disposables - missed it in sample 15
+- The problem with sample 15 persists - for some reason all vectors are returned with same score. 
+- When posting irrelevant message - the tool is not called - which is the expected behaviour. 
+
+```
+> what is the password for wifi
+- Tool Call: 'search_knowledge' (Args: [input = wifi password office guest network password Wi-Fi SSID internal knowledge base]
+Getting top 3 elements from the vector store:
+Text: Our internet connection uses fiber optic internet, Score: 0.9203743934631348
+Text: There are 10 men and 20 women working in our office, Score: 0.9203743934631348
+Text: Cat's eyes are green..., Score: 0.9203675389289856
+
+Agent > I couldn't find any Wi-Fi password information in the knowledge base.
+
+The search results only returned unrelated items. If you want, I can try a more targeted search for:
+- the Wi-Fi network name/SSID
+- guest Wi-Fi access
+- office internet setup
+- IT/helpdesk contact info
+
+Or you can tell me your office/location and I'll search again.
+
+------------------------------------------------------------------------------------------------------------------------
+
+> hello
+
+Agent > Hello! How can I help?
+
+```
