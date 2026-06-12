@@ -218,3 +218,28 @@ Or you can tell me your office/location and I'll search again.
 Agent > Hello! How can I help?
 
 ```
+
+### Sample 17 - Reasoning effort level
+- When creating agents - reasoning effort level can be set for Open AI
+- In the course the default level was shown as medium - but as per the tests - it deoesn't seem to be
+- When reasoning not set - no reasoning tokens are used - which seems to increase with increasing level
+
+```
+> what is the capital and population of france?
+
+Agent without reasoning: > The capital of France is **Paris**.
+
+Its population is **about 68 million people**.
+Token Usage: input: 83, output: 23, reasoning: 0
+
+Agent with low reasoning: > France's capital is **Paris**.
+
+Its population is **about 68 million people** (recent estimate).
+Token Usage: input: 83, output: 118, reasoning: 87
+
+Agent with medium reasoning: > The capital of France is **Paris**.
+
+Its population is **about 68 million people** (recent estimate).
+Token Usage: input: 83, output: 134, reasoning: 102
+
+```

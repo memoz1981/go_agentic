@@ -75,6 +75,7 @@ internal class AgentClientFactory
         throw new ArgumentOutOfRangeException(); 
     }
 
+#pragma warning disable OPENAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
     public static AIAgent GetAgent(
         OpenAIClient openAIClient,
         string model,
@@ -82,24 +83,59 @@ internal class AgentClientFactory
         string instructions = DEFAULT_INSTRUCTIONS,
         IList<AITool> tools = null,
         bool withMiddleware = false,
-        ClientType clientType = ClientType.Chat)
+        ClientType clientType = ClientType.Chat,
+        ChatReasoningEffortLevel? reasoningLevel = null)
     {
-#pragma warning disable OPENAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-        var agent = clientType switch
+        var agent = (clientType, reasoningLevel) switch
         {
-            ClientType.Chat => openAIClient
+            (ClientType.Chat, null) => openAIClient
                    .GetChatClient(model)
                    .AsAIAgent(
                        name: name,
                        instructions: instructions,
-                       tools: tools),
-            ClientType.Response => openAIClient
+                       tools: tools
+                       ),
+            (ClientType.Chat, _) => openAIClient
+                   .GetChatClient(model)
+                   .AsAIAgent(options: new ChatClientAgentOptions()
+                   {
+                       ChatOptions = new ChatOptions()
+                       {
+                           RawRepresentationFactory = _ => new ChatCompletionOptions()
+                           {
+                               ReasoningEffortLevel = reasoningLevel.Value,
+                           },
+                           Instructions = instructions,
+                           Tools = tools,
+                       },
+                       Name = name,
+                   }),
+            (ClientType.Response, null) => openAIClient
                    .GetResponsesClient()
                    .AsAIAgent(
                        name: name,
                        model: model,
                        instructions: instructions,
                        tools: tools),
+            //(ClientType.Response, _) => openAIClient
+            //       .GetResponsesClient()
+            //       .AsAIAgent(
+            //            model: model,
+            //            options: new ChatClientAgentOptions()
+            //            {
+            //                ChatOptions = new ChatOptions()
+            //                {
+            //                    RawRepresentationFactory = _ => new CreateResponseOptions()
+            //                    {
+            //                        ReasoningOptions = new ResponseReasoningOptions()
+            //                        {
+            //                            ReasoningEffortLevel = reasoningLevel.Value,
+            //                            ReasoningSummaryVerbosity = ResponseReasoningSummaryVerbosity.Detailed
+            //                        }
+            //                    }
+            //                }
+                                       
+            //            }),
             _ => throw new ArgumentException(nameof(clientType))
         };
 #pragma warning restore OPENAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
