@@ -71,5 +71,5 @@ internal class SqlLiteVectorRepo<T> : IVectorRepo<T> where T : BaseVector
     public IAsyncEnumerable<VectorSearchResult<T>> Search(
         VectorStoreCollection<Guid, T> vectorStoreCollection, 
         string input)
-        => vectorStoreCollection.SearchAsync(input, 5); 
+        => vectorStoreCollection.SearchAsync(input, 10); 
 }

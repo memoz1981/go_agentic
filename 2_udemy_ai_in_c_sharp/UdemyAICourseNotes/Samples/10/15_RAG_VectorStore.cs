@@ -16,7 +16,8 @@ internal class _15_RAG_VectorStore : BaseSample
             new SimpleTextVector("There are 10 men and 20 women working in our office"),
             new SimpleTextVector("Our office opens at 8 am and closes at 10 pm"),
             new SimpleTextVector("Our office is located in the city center in Neftchilar avenue"),
-            new SimpleTextVector("Our internet connection uses fiber optic internet")
+            new SimpleTextVector("Our internet connection uses fiber optic internet"),
+            new SimpleTextVector("Cat's eyes are green...")
         ];
 
     public override async Task RunAsync()
@@ -79,7 +80,7 @@ internal class _15_RAG_VectorStore : BaseSample
             chatMessageList.Add(new ChatMessage(ChatRole.User, input));
             
             //write the vector search results and add to list to send to LLM
-            BlueLine("Getting top 3 most relevant searches from the vector database:");
+            BlueLine("Getting all elements from the vector store:");
             int index = 1; 
             await foreach (var vectorSearchResult in repo.Search(collection, input).OrderByDescending(r => r.Score))
             {
