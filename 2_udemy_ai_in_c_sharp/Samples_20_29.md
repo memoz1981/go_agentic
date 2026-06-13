@@ -41,3 +41,9 @@ Agent response: > Sorry, I don't have access to your personal info anymore in th
 - This implementation has some cons - if you tell my name is Mehdi, then my name is MehdiZ - it will store both - may use a dictionary
 instead to store key/value pairs - and it may use a text serialization/deserialization to/from dictionary. 
 - Will add Sample 21 - to just have a tool that will almost do the same - write to/from txt file - without the context provider. Still there's a need for an agent to manage memory to add / memory to remove... 
+
+### Sample 21 - Using memory agent as tool (alternative to Sample 20 ContextProvider)
+- We can create the memory agent directly calling memory service to get/set the memory
+- Main agent has the memory agent as tool
+- You may use sample 20 inputs - should get the same response
+- Just in the example it goes to the file each time - instead could do it in memory, but not required for the sake of the sample. 
