@@ -2,7 +2,7 @@
 using Microsoft.Extensions.AI;
 using static UdemyAICourseNotes.Helpers.Output;
 
-namespace UdemyAICourseNotes.Services.ContextProviders;
+namespace UdemyAICourseNotes.Services.Memory;
 
 /// <summary>
 /// Saves user facts as raw strings
@@ -10,37 +10,42 @@ namespace UdemyAICourseNotes.Services.ContextProviders;
 internal class CustomContextProvider : AIContextProvider
 {
     private readonly AIAgent _memoryAgent;
-    private readonly List<string> _userFacts = [];
-    private readonly string _userMemoryFilePath;
+    private readonly Lazy<Task<List<string>>> _userFacts;
+    private readonly MemoryService _memoryService;
 
     public CustomContextProvider(AIAgent memoryAgent, string userId)
     {
         _memoryAgent = memoryAgent;
-        _userMemoryFilePath = Path.Combine(Path.GetTempPath(), $"{userId}.txt");
-        if (File.Exists(_userMemoryFilePath))
-        {
-            _userFacts.AddRange(File.ReadAllLines(_userMemoryFilePath));
-            GrayLine($"Loading facts with {_userFacts.Count} count user facts");
-        }
+        var userMemoryFilePath = Path.Combine(Path.GetTempPath(), $"{userId}.txt");
+        _memoryService = new(userMemoryFilePath);
+
+        _userFacts = new(GetUserFacts); 
     }
 
+    private Task<List<string>> GetUserFacts() => _memoryService.GetMemory();
+
     //called by Invoking - provides additional context for the LLM call
-    protected override ValueTask<AIContext> ProvideAIContextAsync(InvokingContext context,
+    protected override async ValueTask<AIContext> ProvideAIContextAsync(InvokingContext context,
         CancellationToken cancellationToken = default)
-            => ValueTask.FromResult(new AIContext()
-            {
-                Instructions = $"User facts - {string.Join(" | ", _userFacts)}",
-            });
+    {
+        var userFacts = await _userFacts.Value;
+
+        return new AIContext()
+        {
+            Instructions = $"User facts - {string.Join(" | ", userFacts)}",
+        };
+    }
 
     //called by Invoked - saves the context
     protected override async ValueTask StoreAIContextAsync(InvokedContext context, CancellationToken cancellationToken = default)
     {
         var lastMessageFromUser = context.RequestMessages.Last();
+        var userFacts = await _userFacts.Value;
 
         //build messages to memory agent
         List<ChatMessage> inputToMemoryAgent =
             [
-                new(ChatRole.Assistant, $"We know the following about the user already and should not extract that again: {string.Join(" | ", _userFacts)}"),
+                new(ChatRole.Assistant, $"We know the following about the user already and should not extract that again: {string.Join(" | ", userFacts)}"),
                 lastMessageFromUser
             ];
 
@@ -52,14 +57,14 @@ internal class CustomContextProvider : AIContextProvider
         //remove all memory from the in memory user fact
         foreach (var memoryToRemove in memoryAgentResponse.Result.MemoryToRemove ?? [])
         {
-            _userFacts.Remove(memoryToRemove);
+            userFacts.Remove(memoryToRemove);
             GrayLine($"Removing user fact: {memoryToRemove}");
         }
 
         //add any new facts returned
         foreach (var memoryToAdd in memoryAgentResponse.Result.MemoryToAdd ?? [])
         {
-            _userFacts.Add(memoryToAdd);
+            userFacts.Add(memoryToAdd);
             GrayLine($"Adding user fact: {memoryToAdd}");
         }
 
@@ -69,10 +74,8 @@ internal class CustomContextProvider : AIContextProvider
         if (updateCount > 0)
         {
             //save updated memory
-            await File.WriteAllLinesAsync(_userMemoryFilePath, _userFacts, cancellationToken: cancellationToken);
-            GrayLine($"Saved file with {_userFacts.Count} count facts...");
+            await _memoryService.SetMemory(userFacts);
+            GrayLine($"Saved file with {userFacts.Count} count facts...");
         }
     }
-
-    private record MemoryUpdate(List<string> MemoryToAdd, List<string> MemoryToRemove); 
 }
