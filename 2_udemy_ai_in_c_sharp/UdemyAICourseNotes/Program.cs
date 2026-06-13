@@ -1,5 +1,6 @@
 ﻿using UdemyAICourseNotes.Samples;
 using UdemyAICourseNotes.Samples._10;
+using UdemyAICourseNotes.Samples._20;
 using static UdemyAICourseNotes.Helpers.Output; 
 
 var sample1 = new _1_Basic_Chat_Client();
@@ -21,11 +22,14 @@ var sample15 = new _15_RAG_VectorStore();
 var sample16 = new _16_RAG_As_A_Tool();
 var sample17 = new _17_Reasoning();
 var sample18 = new _18_Multi_Modal();
-var sample19 = new _19_Empty(); 
+var sample19 = new _19_Empty();
+
+var sample20 = new _20_Memory_Agent(); 
 
 BaseSample[] samples = 
     [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8, sample9,
-      sample10, sample11, sample12, sample13, sample14, sample15, sample16, sample17, sample18, sample19];
+      sample10, sample11, sample12, sample13, sample14, sample15, sample16, sample17, sample18, sample19,
+      sample20];
 
 Red("Type the index of the sample to continue:");
 Console.WriteLine();

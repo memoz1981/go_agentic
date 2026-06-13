@@ -1,5 +1,6 @@
 ﻿using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
+using ModelContextProtocol.Protocol;
 using OpenAI;
 using OpenAI.Chat;
 using OpenAI.Responses;
@@ -145,6 +146,14 @@ internal class AgentClientFactory
                 .Use(Middleware)
                 .Build();
     }
+
+    public static AIAgent GetAgent(
+        OpenAIClient openAIClient,
+        string model,
+        ChatClientAgentOptions chatClientAgentOptions)
+        => openAIClient
+                   .GetChatClient(model)
+                   .AsAIAgent(chatClientAgentOptions);
 
     public static IEmbeddingGenerator<string, Embedding<float>> GetEmbeddingGenerator(
         OpenAIClient client, string model)
