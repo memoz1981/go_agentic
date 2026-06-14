@@ -47,3 +47,40 @@ instead to store key/value pairs - and it may use a text serialization/deseriali
 - Main agent has the memory agent as tool
 - You may use sample 20 inputs - should get the same response
 - Just in the example it goes to the file each time - instead could do it in memory, but not required for the sake of the sample. 
+
+### Sample 22 - Session storage using ChatHistoryProvider
+- This is the behaviour currently implemented by public LLMs like OpenAI, Claude etc. when logging to account - the chat history is presented which has
+a) The timestamps
+b) The descriptions 
+c) Raw history
+- To add above functionality ChatHistoryProvider can be used - all we need to do is to have some session knowledge (unfortunately it doesn't come built in - so had to add CustomSession class) - once we identify the session we are in (new session, or an existing session):
+a) We need to ensure that related history can be loaded from the unique session identifier
+b) We could save into the history
+
+```
+Select one of the following sessions:
+0 - 6/14/2026 6:31:58 AM - who is barack obama?
+1 - 6/14/2026 6:32:50 AM - who is putin?
+-1 to start a new session:
+
+0
+
+user > who is barack obama?
+assistant > Barack Obama(???·???)is an American politician and public figure. He served as the **44th President of the United States** from **2009 to 2017**.
+
+- He is a member of the **Democratic Party**.
+- Before being president, he worked as a **lawyer** and served in **the U.S. Senate** (from Illinois).
+- He is well known for major changes in U.S. policy, including the **Affordable Care Act** (often called Obamacare).
+- He was the **first African American** to become U.S. president.
+user > how tall is he?
+assistant > Barack Obama is **about 6 feet 1 inch** tall (around **185 cm**).
+user > when was he the president?
+assistant > Barack Obama was the President of the United States from **January 20, 2009** to **January 20, 2017**.
+
+
+> what is his age?
+Agent response: > Barack Obama was born on **August 4, 1961**.
+As of **today (June 14, 2026)**, he is **64 years old** (turning **65** on August 4, 2026).
+```
+
+As seen from above - once session is loaded - all messages from the session can be accessed just like OpenAI or Claude (and other LLMs).
