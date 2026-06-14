@@ -66,11 +66,6 @@ internal class _22_Memory_Conversation_Persistence : BaseSample
                 GrayLine($"{message.Role.Value} > {message.Text}");
             }
         }
-        else
-        {
-            var newSession = _sessionService.CreateEmptySession();
-            session.StateBag.SetValue(SESSION_NAME, newSession.Name);
-        }
 
         while (true)
         {
