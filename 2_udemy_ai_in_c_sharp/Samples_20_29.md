@@ -84,3 +84,38 @@ As of **today (June 14, 2026)**, he is **64 years old** (turning **65** on Augus
 ```
 
 As seen from above - once session is loaded - all messages from the session can be accessed just like OpenAI or Claude (and other LLMs).
+
+### Sample 23 - Filters using AI
+- Used when scenarios where we are working with large data - which costs a lot to send to LLM and we need filtering
+- If we try to send whole data each time to LLM - it has following cons: 
+a) A lot of input token usage
+b) Repeated data 
+c) A lot of reasoning token usage
+d) Potentially a lot of output token usage
+e) It will be quite slow, especially with large data size...
+- What we want to achieve is another layer from a normal Web App with filtering - where we want to convert text to normal back-end filter classes 
+- The main difference from the vectors is that - vectors are similarity search (like dog-animal), while filters provide exact searches (like contains text, year between dates etc.)
+- The solution works as follows:
+a) Again if we try to send raw data - we need to send all books to LLM (like normalAgent in the example) concatted with the question - LLM will reason and send the filtered data back - cons of which are described above. Advanced models are very good in reasoning, so probably the data will be all right - with drawback of cost and efficiency
+b) We have a book class and book filter class - all we have to do is to ensure book filter class can fully represent the filter functionality
+c) We ask LLM to convert the query to book filter array (query may include multiple filter like author containing, year equals etc.)
+d) We don't send the book list even the book class structure to LLM - all it needs to know is the question and the BookFilter class structure
+e) LLM populates array of the book filters 
+f) We send the book filters to Back-End and get the results - we don't need to send it back to LLM unless we want to do anything further with it... 
+
+```
+> give me all books written after 18th century (inclusive) and name including adventures
+Normal Agent response: > Books **written after the 18th century (inclusive)** from your list (and with "adventures" in the title):
+- **Alice's Adventures in Wonderland** - *1865* - Lewis Carroll
+- **The Adventures of Huckleberry Finn** - *1884* - Mark Twain
+
+Filter Agent response (filters): > 
+YearOfRelease - GreaterThanOrEqual - 1700
+Title - Contains - adventures
+
+Filtered Output as per the filters provided by the filter agent:
+Alice's Adventures in Wonderland - 1865 - Lewis Carroll - Fantasy - A girl named Alice falls through a rabbit hole into a fantasy world.
+The Adventures of Huckleberry Finn - 1884 - Mark Twain - Adventure - A young boy and a runaway slave travel down the Mississippi River.
+
+```
+As seen from above (and from the code:) - we don't need to send book list o LLM - just the request itself + bookFilter (to ask for structured output). 
