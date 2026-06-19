@@ -50,7 +50,8 @@ internal class _25_Workflows_Intruduction : BaseSample
              name: "slotSelectionAgent",
              instructions: "There are multiple slots available - ask user which slot does it want to select - ensure " +
              "the length of the returned PossibleStartHours is exactly one... help user with the decision" +
-             "by considering traffic, tea service etc.",
+             "by considering traffic, tea service etc. ENSURE THAT the seleced slot is one of the available slots, if" +
+             "provide out of those re-iterate until they come up with 1 available one...",
              withMiddleware: true,
              clientType: ClientType.Chat);
 
@@ -69,10 +70,11 @@ internal class _25_Workflows_Intruduction : BaseSample
         var appointmentRecorderExecutor = new UserFacingExecutor(appointmentRecorderAgent, "appointmentRecorderExecutor");
         var appointmentParserExecutor = new AppointmentParserExecutor(appointmentParserAgent);
         var appointmentCheckerExecutor = new AppointmentCheckerExecutor(appointmentSchedule);
-        var noSlotFoundExecutor = new UserFacingExecutor(noSlotFoundAgent, "noSlotFoundExecutor");
-        var slotSelectionExecutor = new UserFacingExecutor(slotSelectionAgent, "slotSelectionExecutor");
+        var appointmentNotMadeExecutor = new AppointmentNotMadeExecutor(noSlotFoundAgent);
+        var appointmentNotMadeExecutor2 = new AppointmentNotMadeExecutor2(noSlotFoundAgent);
+        var slotSelectionExecutor = new SlotSelectionExecutor(slotSelectionAgent);
         var appointmentMakerExecutor = new AppointmentMakerExecutor(appointmentSchedule);
-        var confirmationExecutor = new UserFacingExecutor(confirmationAgent, "confirmationExecutor"); 
+        var appointmentMadeExecutor = new AppointmentMadeExecutor(confirmationAgent, "appointmentMadeExecutor"); 
 
         var workFlowBuilder = new WorkflowBuilder(appointmentRecorderExecutor);
         workFlowBuilder.AddEdge(appointmentRecorderExecutor, appointmentParserExecutor);
@@ -80,18 +82,22 @@ internal class _25_Workflows_Intruduction : BaseSample
         workFlowBuilder.AddSwitch(appointmentCheckerExecutor,
             switchBuilder =>
             {
-                switchBuilder.AddCase<AppointmentDto>(app => (app.PossibleStartHours?.Length ?? 0) == 0, noSlotFoundExecutor);
+                switchBuilder.AddCase<AppointmentDto>(app => (app.PossibleStartHours?.Length ?? 0) == 0, appointmentNotMadeExecutor);
                 switchBuilder.AddCase<AppointmentDto>(app => app.PossibleStartHours.Length == 1, appointmentMakerExecutor);
                 switchBuilder.AddCase<AppointmentDto>(app => app.PossibleStartHours.Length > 1, slotSelectionExecutor);
             });
 
         workFlowBuilder.AddSwitch(appointmentMakerExecutor, switchBuilder =>
         {
-            switchBuilder.AddCase<bool>(val => val, confirmationExecutor);
-            switchBuilder.AddCase<bool>(val => !val, noSlotFoundExecutor);
+            switchBuilder.AddCase<AppointmentResultDto>(val => val.Success, appointmentMadeExecutor);
+            switchBuilder.AddCase<AppointmentResultDto>(val => !val.Success, appointmentNotMadeExecutor);
         });
 
-        workFlowBuilder.AddEdge(slotSelectionExecutor, appointmentMakerExecutor);
+        workFlowBuilder.AddSwitch(slotSelectionExecutor, switchBuilder =>
+        {
+            switchBuilder.AddCase<AppointmentDto>(app => (app.PossibleStartHours?.Length ?? 0) == 1, appointmentMakerExecutor);
+            switchBuilder.AddCase<AppointmentDto>(app => (app.PossibleStartHours?.Length ?? 0) == 1, appointmentNotMadeExecutor2); 
+        });
 
         var workFlow = workFlowBuilder.Build();
 
@@ -141,6 +147,8 @@ internal class _25_Workflows_Intruduction : BaseSample
 
     public record AddAppointmentDto(string Name, DateTime Date, int Hour, string Description, string Phone); 
 
+    public record AppointmentResultDto(bool Success, AppointmentDto Appointment);
+
     public class InMemoryAppointmentSchedule
     {
         private Dictionary<DateTime, Day> _appointments = new();
@@ -183,7 +191,8 @@ internal class _25_Workflows_Intruduction : BaseSample
         {
             if (!_appointments.TryGetValue(appointmentRequest.Date, out var day))
             {
-                _appointments[appointmentRequest.Date] = new Day(StartHour, EndHour); 
+                day = new Day(StartHour, EndHour);
+                _appointments[appointmentRequest.Date] = day; 
             }
 
             var appointment = new Appointment(appointmentRequest.Name, appointmentRequest.Hour, true, 

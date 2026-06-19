@@ -4,9 +4,11 @@ using static UdemyAICourseNotes.Samples._20._25_Workflows_Intruduction;
 
 namespace UdemyAICourseNotes.Workflows;
 
-internal class AppointmentMakerExecutor(InMemoryAppointmentSchedule schedule) : Executor<AppointmentDto, bool>("AppointmentMakerExecutor")
+internal class AppointmentMakerExecutor(InMemoryAppointmentSchedule schedule) : Executor<AppointmentDto, AppointmentResultDto>("AppointmentMakerExecutor")
 {
-    public override ValueTask<bool> HandleAsync(AppointmentDto message, IWorkflowContext context, CancellationToken cancellationToken = default)
+    private HashSet<string> _blackList = ["dave1", "dave2"];
+    
+    public override ValueTask<AppointmentResultDto> HandleAsync(AppointmentDto message, IWorkflowContext context, CancellationToken cancellationToken = default)
     {
         GrayLine("Booking slot...");
         if (message is null
@@ -17,7 +19,13 @@ internal class AppointmentMakerExecutor(InMemoryAppointmentSchedule schedule) : 
             || string.IsNullOrWhiteSpace(message.Description))
         {
             GrayLine("Couldn't book the slot.");
-            return ValueTask.FromResult(false);
+            return ValueTask.FromResult(new AppointmentResultDto(false, message));
+        }
+
+        if (_blackList.Contains(message.Name.ToLower().Trim()))
+        {
+            GrayLine("Couldn't book the slot - user is in black list");
+            return ValueTask.FromResult(new AppointmentResultDto(false, message));
         }
 
         var addAppointmentDto = new AddAppointmentDto(message.Name, message.Date, message.PossibleStartHours.First(),
@@ -26,6 +34,6 @@ internal class AppointmentMakerExecutor(InMemoryAppointmentSchedule schedule) : 
         schedule.AddAppointment(addAppointmentDto); 
         GrayLine("Booked the slot");
 
-        return ValueTask.FromResult(true);
+        return ValueTask.FromResult(new AppointmentResultDto(true, message));
     }
 }
