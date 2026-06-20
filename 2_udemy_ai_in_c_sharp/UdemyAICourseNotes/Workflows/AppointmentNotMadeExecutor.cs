@@ -13,7 +13,7 @@ internal class AppointmentNotMadeExecutor(AIAgent agent) : Executor<AppointmentR
         GrayLine("AppointmentNotMadeExecutor agent executing...");
 
         var response = await agent.RunAsync($"Provide confirmation to user that no slot found for the provided info, " +
-            $"repeating the date, time, name, description, phone number: {JsonSerializer.Serialize(message.Appointment)}");
+            $"repeating the date, time, name and description of the request {JsonSerializer.Serialize(message.Appointment)}");
         RedLine($"> {response.ToString()}");
 
         GrayLine("AppointmentNotMadeExecutor agent executed...");

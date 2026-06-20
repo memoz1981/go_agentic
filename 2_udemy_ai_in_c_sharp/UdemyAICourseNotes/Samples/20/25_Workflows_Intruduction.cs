@@ -24,7 +24,7 @@ internal class _25_Workflows_Intruduction : BaseSample
             openAIClient: client,
              model: Models.OpenAI.GPT_5_4,
              name: "appointmentRecorderAgent",
-             instructions: "You need to clarify with user - name, phone number, appointment timing preferences and some description",
+             instructions: "Welcome the user and ask for the appointment details - make sure you confirm which details are provided and ask others only",
              withMiddleware: true,
              clientType: ClientType.Chat);
 
@@ -51,7 +51,8 @@ internal class _25_Workflows_Intruduction : BaseSample
              instructions: "There are multiple slots available - ask user which slot does it want to select - ensure " +
              "the length of the returned PossibleStartHours is exactly one... help user with the decision" +
              "by considering traffic, tea service etc. ENSURE THAT the seleced slot is one of the available slots, if" +
-             "provide out of those re-iterate until they come up with 1 available one...",
+             "provide out of those re-iterate until they come up with 1 available one...Don't repeat same message, act like human" +
+             "try to keep answers as short as possible and don't repeat yourself",
              withMiddleware: true,
              clientType: ClientType.Chat);
 
@@ -67,7 +68,7 @@ internal class _25_Workflows_Intruduction : BaseSample
         var appointmentSchedule = new InMemoryAppointmentSchedule(); 
 
         //executors
-        var appointmentRecorderExecutor = new UserFacingExecutor(appointmentRecorderAgent, "appointmentRecorderExecutor");
+        var appointmentRecorderExecutor = new InitialTalkExecutor(appointmentRecorderAgent, "appointmentRecorderExecutor");
         var appointmentParserExecutor = new AppointmentParserExecutor(appointmentParserAgent);
         var appointmentCheckerExecutor = new AppointmentCheckerExecutor(appointmentSchedule);
         var appointmentNotMadeExecutor = new AppointmentNotMadeExecutor(noSlotFoundAgent);

@@ -119,3 +119,19 @@ The Adventures of Huckleberry Finn - 1884 - Mark Twain - Adventure - A young boy
 
 ```
 As seen from above (and from the code:) - we don't need to send book list o LLM - just the request itself + bookFilter (to ask for structured output). 
+
+### Sample 25 - Workflows Introduction
+
+Workflows provide functionality to manage agent flow - agents can run sequentially, conditionally branch, merge, go back etc. Almost like the "Basic programming language" functionality. 
+
+In the provided example multiple agent/workflows are defined for followings:
+- Take appointment details
+- Convert details to structured output
+- Filter details based on the availability
+a) If no slots - say sorry
+b) If one slot - book and confirm
+c) If multiple slots go back to user to select single hour. 
+
+```
+
+```
