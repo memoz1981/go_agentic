@@ -132,6 +132,15 @@ a) If no slots - say sorry
 b) If one slot - book and confirm
 c) If multiple slots go back to user to select single hour. 
 
-```
+### Sample 26 - Workflow without workflows
+- Basically trying to set up the workflow using logical statements - trying to use agents directly
+- What I found that with complex workflows, it's getting tricky - while it's possible to use if/else for switch statements, 
+or concurrently run the tasks, or chain events - it's very tricky to go back to a previous stage for example. 
 
-```
+It's almost like "Basic Programming Language" functionality with go-to statements. 
+
+Notes on workflows:
+- Sometimes it's much easier and cleaner to use just logical expressions in the code and directly use agents instead of workflows.
+But when we need to go back to a previous stage - it's becoming tricky. 
+
+In next example will try to explore using an orchestrator agent, let's see how it goes. 

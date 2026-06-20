@@ -149,6 +149,8 @@ internal class _25_Workflows_Intruduction : BaseSample
     public record AddAppointmentDto(string Name, DateTime Date, int Hour, string Description, string Phone); 
 
     public record AppointmentResultDto(bool Success, AppointmentDto Appointment);
+    public record InitialAppointmentDto(bool IsFinal, bool IsCancelled, string FinalizedRequest, string FurtherQuestionToUser); 
+    public record SlotSelectionDto(bool IsFinal, bool IsCancelled, string FurtherQuestionToUser, AddAppointmentDto Appointment); 
 
     public class InMemoryAppointmentSchedule
     {
