@@ -30,12 +30,13 @@ var sample22 = new _22_Memory_Conversation_Persistence();
 var sample23 = new _23_AI_As_Data_Filter();
 var sample24 = new _24_Chat_History_Reducers_Empty();
 var sample25 = new _25_Workflows_Intruduction();
-var sample26 = new _26_Workflow_Without_Workflows(); 
+var sample26 = new _26_Workflow_Without_Workflows();
+var sample27 = new _27_Agent_As_Workflow_Orchestrator(); 
 
 BaseSample[] samples = 
     [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8, sample9,
       sample10, sample11, sample12, sample13, sample14, sample15, sample16, sample17, sample18, sample19,
-      sample20, sample21, sample22, sample23, sample24, sample25, sample26];
+      sample20, sample21, sample22, sample23, sample24, sample25, sample26, sample27];
 
 Red("Type the index of the sample to continue:");
 Console.WriteLine();

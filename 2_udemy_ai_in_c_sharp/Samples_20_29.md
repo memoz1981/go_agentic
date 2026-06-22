@@ -144,3 +144,15 @@ Notes on workflows:
 But when we need to go back to a previous stage - it's becoming tricky. 
 
 In next example will try to explore using an orchestrator agent, let's see how it goes. 
+
+**Important Note:** What I found that the agent interactions were much more precise and clear when directly using agents than in workflow.
+That may be due to I was passing instructions/chat messages in workflows, while the agents had instructions only. 
+Also the instructions I wrote in agents were much clean/precise. Besides - sessions should really handle everything - no need for 
+manual interventions. 
+
+### Sample 27 - Agent as Workflow Orchestrator
+- Using agent as orchestrator - to my surprize it worked 
+- So far the cleanest solution is Sample 26 - where we just use logical expressions to manage the workflow, with one con - it doesn't go back if the user asks - I think that's the sole reason of having workflows
+- Overall this solution works, not very clean - some adjustments required, but will not spend much time on it. 
+
+See on Next Section - Will try workflows to have the appointment app - will improve to go back and to be able to accept multiple requests and be able to identify booked slots. 
