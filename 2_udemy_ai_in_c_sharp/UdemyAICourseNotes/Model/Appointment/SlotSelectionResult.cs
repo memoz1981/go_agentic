@@ -1,9 +1,9 @@
-﻿namespace UdemyAICourseNotes.Models.Appointment;
+﻿namespace UdemyAICourseNotes.Model.Appointment;
 
 internal record SlotSelectionResult(SlotSelectionStatus SlotSelectionStatus, AppointmentLead AppointmentLead, 
-    AppointmentLeadDetail SelectedSlot, string AlternativeDateRequestDetails);
+    AppointmentSlot SelectedSlot, string AlternativeDateRequestDetails);
 
-internal record SlotSelectionResultSlim(SlotSelectionStatus SlotSelectionStatus, AppointmentLeadDetail SelectedSlot, 
+internal record SlotSelectionResultSlim(SlotSelectionStatus SlotSelectionStatus, AppointmentSlot SelectedSlot, 
     string AlternativeDateRequestDetails); 
 
 internal enum SlotSelectionStatus

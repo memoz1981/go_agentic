@@ -18,26 +18,25 @@ internal class AppointmentWorkflowFactory
     // agent to take the initial request
     private const string APPOINTMENT_RECORDER_INSTRUCTIONS =
         @"
-            Welcome the user and ask how can you help - you are only appointment agent and cannot answer any other questions
-            other than appointment scheduling and date related questions. 
-            Work with the user to gather following appoinment information:
-            Name: 
-            Phone number
-            Date of appointment (single date) - user may change the date
-            Possible hours (like 10 to 18 or after noon, evening etc.) 
-            Description - what is the appointment for
-            All data should be provided, keep your questions short, precise, pretty - 
-            In the end - summarize and ask for confirmation
-            Use the tool 'get_todays_date' to get todays date and calculate tomorrow and any other date related questions
-            Return null if the request is cancelled, true if the request is fully taken/confirmed, false if still clarifications required
-            Return data as follows:
-            IsFinal - return true if the appointment is finalized and confirmed with the user
-            IsCancelled - return if the user changed his/her mind and cancelled the request 
-            Return IsCancelled true if the user could not answer 10 questions to finalize the request - when returning this 
-            return FurtherQuestionsToUser as polite apology saying that you need to try later
-            FinalizedRequest - return only if IsFinal is true - summarizing the request details - otherwise return null
-            FurtherQuestionToUser - return only if there are further questions to user (use polite short tone) or as above
-            the IsCancelled is true - if it's cancelled by the user just tell politely we would love to see you soon";
+            - Welcome the user and ask how can you help 
+            - you are only appointment agent and cannot answer any other questions other than appointment scheduling and date related questions. 
+            - Work with the customer to gather following appoinment information:
+            a) Name 
+            b) Phone number
+            c) Date and Time of the appointment that works for the customer - accept responses like today after noon or tomorrow morning. 
+            d) Description - what is the appointment for
+            - All data should be provided, keep your questions short, precise, pretty
+            - In the end - summarize the request and ask for confirmation
+            - Use the tool 'get_todays_date' to get todays date and calculate tomorrow and any other date related questions
+            - Return data as follows:
+            a) InitialAppointmentStatus
+            i) Return RequestFinalized if request is finalized/confirmed with the customer
+            ii) Return RequestCancelled if customer cancelled after confirmation
+            iii) Return CouldNotFinalize - if the user failed to confirm/cancel after 10 questions - don't ask any confirmation just return then
+            iv) Return ClarificationsRequired - if still questions need to be answered by client or confirmation required - FurtherQuestionToUser should be provided
+            b) IsCancelled - return if the customer changed his/her mind and cancelled the request 
+            c) FinalizedRequest - return only if IsFinal is true - summarizing the request details - otherwise return null
+            d) FurtherQuestionToUser - return only if there are further questions to user (use polite short tone) and InitialAppointmentStatus is ClarificationsRequired";
 
     private const string SLOT_SELECTION_INSTRUCTIONS =
         @"You are a appointment slot selection agent - work with user to select the suitable time slot - one of the 

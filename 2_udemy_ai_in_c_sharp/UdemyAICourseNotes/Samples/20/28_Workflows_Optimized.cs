@@ -1,9 +1,11 @@
 ﻿using Microsoft.Agents.AI;
+using Microsoft.Agents.AI.Workflows;
 using OpenAI;
+using UdemyAICourseNotes.Model.Appointment;
+using UdemyAICourseNotes.Services.Appointment;
 using UdemyAICourseNotes.Services.Workflows;
 using UdemyAICourseNotes.Workflows.OptimizedAppointment;
 using static UdemyAICourseNotes.Helpers.Output;
-using static UdemyAICourseNotes.Samples._20._25_Workflows_Intruduction;
 
 namespace UdemyAICourseNotes.Samples._20;
 
@@ -18,16 +20,18 @@ internal class _28_Workflows_Optimized : BaseSample
     private readonly AIAgent _slotSelectionAgent;
     private readonly AppointmentWorkflowFactory _agentFactory;
 
-    private readonly InMemoryAppointmentSchedule _inMemoryAppointmentSchedule;
+    private readonly AppointmentService _appointmentService; 
 
     private readonly InitialAppointmentExecutor _initialAppointmentExecutor;
-    private readonly AppParserExecutor _appointmentParserExecutor; 
+    private readonly InitialCancellationExecutor _cancellationExecutor; 
+    private readonly AppParserExecutor _appointmentParserExecutor;
+    private readonly FreeSlotFinderExecutor _freeSlotFinderExecutor; 
 
     public _28_Workflows_Optimized()
     {
         _agentFactory = new();
         _client = _agentFactory.GetClient();
-        _inMemoryAppointmentSchedule = new(); 
+        _appointmentService = new(); 
 
         _appointmentRecorderAgent = _agentFactory.GetRecorderAgent(_client);
         _appointmentParserAgent = _agentFactory.GetAppointmentParserAgent(_client);
@@ -36,7 +40,9 @@ internal class _28_Workflows_Optimized : BaseSample
         _slotSelectionAgent = _agentFactory.GetSlotSelectionAgent(_client);
 
         _initialAppointmentExecutor = new(_appointmentRecorderAgent);
-        _appointmentParserExecutor = new(_appointmentParserAgent); 
+        _appointmentParserExecutor = new(_appointmentParserAgent);
+        _cancellationExecutor = new();
+        _freeSlotFinderExecutor = new(_appointmentService); 
     }
 
     public override Task RunAsync()
@@ -45,7 +51,18 @@ internal class _28_Workflows_Optimized : BaseSample
         Console.WriteLine();
         Console.WriteLine();
 
-
+        var workFlowBuilder = new WorkflowBuilder(_initialAppointmentExecutor);
+        workFlowBuilder.AddSwitch(_initialAppointmentExecutor, switchBuilder =>
+        {
+            switchBuilder.AddCase<InitialAppointmentSlim>(
+                app => app.InitialAppointmentStatus == InitialAppointmentStatus.RequestCancelled, _cancellationExecutor);
+            switchBuilder.AddCase<InitialAppointmentSlim>(
+                app => app.InitialAppointmentStatus == InitialAppointmentStatus.CouldNotFinalize, _cancellationExecutor);
+            switchBuilder.AddCase<InitialAppointmentSlim>(
+                app => app.InitialAppointmentStatus == InitialAppointmentStatus.RequestFinalized, _freeSlotFinderExecutor);
+            
+            throw new InvalidOperationException("Invalid value for initial apppointment status...");
+        });
 
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace UdemyAICourseNotes.Models.Appointment;
+﻿namespace UdemyAICourseNotes.Model.Appointment;
 
 internal enum RequestType
 {
