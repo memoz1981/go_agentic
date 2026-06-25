@@ -156,3 +156,7 @@ manual interventions.
 - Overall this solution works, not very clean - some adjustments required, but will not spend much time on it. 
 
 See on Next Section - Will try workflows to have the appointment app - will improve to go back and to be able to accept multiple requests and be able to identify booked slots. 
+
+**Important Note:** In above examples what I found tricky is - initial start and links between the agents. 
+- For example in Sample 27 - main agent starts taking appointment details, then passes to appointmnet agent - which does the same, and since the session is not shared - everything starts from start
+- In work flow related examples - hard to go back - will try in next example
