@@ -1,6 +1,7 @@
 ﻿using UdemyAICourseNotes.Samples;
 using UdemyAICourseNotes.Samples._10;
 using UdemyAICourseNotes.Samples._20;
+using UdemyAICourseNotes.Samples._30_Open_AI_Topics;
 using static UdemyAICourseNotes.Helpers.Output; 
 
 var sample1 = new _1_Basic_Chat_Client();
@@ -35,10 +36,13 @@ var sample27 = new _27_Agent_As_Workflow_Orchestrator();
 var sample28 = new _28_Workflows_Optimized(); 
 var sample29 = new _29_Workflows_Optimized_Claude();
 
+var sample30 = new _30_Service_Tiers(); 
+
 BaseSample[] samples = 
     [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8, sample9,
       sample10, sample11, sample12, sample13, sample14, sample15, sample16, sample17, sample18, sample19,
-      sample20, sample21, sample22, sample23, sample24, sample25, sample26, sample27, sample28, sample29];
+      sample20, sample21, sample22, sample23, sample24, sample25, sample26, sample27, sample28, sample29,
+      sample30];
 
 Red("Type the index of the sample to continue:");
 Console.WriteLine();
