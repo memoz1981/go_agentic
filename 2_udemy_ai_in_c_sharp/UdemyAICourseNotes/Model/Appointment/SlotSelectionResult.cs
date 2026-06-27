@@ -4,9 +4,9 @@ internal record SlotSelectionResult(SlotSelectionStatus SlotSelectionStatus, App
     AppointmentSlot SelectedSlot, string AlternativeDateRequestDetails);
 
 internal record SlotSelectionResultSlim(SlotSelectionStatus SlotSelectionStatus, AppointmentSlot SelectedSlot, 
-    string AlternativeDateRequestDetails); 
+    string AlternativeDateRequestDetails, string FurtherQuestionsToUser); 
 
 internal enum SlotSelectionStatus
 {
-    SlotSelected, Cancelled, AlternativeDateProposed
+    SlotSelected, Cancelled, AlternativeDateProposed, ClarificationsRequired
 }

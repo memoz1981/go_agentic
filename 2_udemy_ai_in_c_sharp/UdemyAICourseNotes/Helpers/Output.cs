@@ -106,6 +106,48 @@ public static class Output
         }
     }
 
+    public static void Write(string text, ConsoleColor foreGround, ConsoleColor backGround)
+    {
+        ConsoleColor foreGroundBefore = Console.ForegroundColor;
+        ConsoleColor backGroundBefore = Console.BackgroundColor; 
+
+        try
+        {
+            Console.ForegroundColor = foreGround;
+            Console.BackgroundColor = backGround; 
+            Console.Write(text);
+        }
+        finally
+        {
+            Console.ForegroundColor = foreGroundBefore;
+            Console.BackgroundColor = backGroundBefore;
+        }
+    }
+
+    public static void WriteLine(string text, ConsoleColor foreGround, ConsoleColor backGround)
+    {
+        ConsoleColor foreGroundBefore = Console.ForegroundColor;
+        ConsoleColor backGroundBefore = Console.BackgroundColor;
+
+        try
+        {
+            Console.ForegroundColor = foreGround;
+            Console.BackgroundColor = backGround;
+            Console.WriteLine(text);
+        }
+        finally
+        {
+            Console.ForegroundColor = foreGroundBefore;
+            Console.BackgroundColor = backGroundBefore;
+        }
+    }
+
+    public static void YellowBg(string text)
+        => Write(text, ConsoleColor.Black, ConsoleColor.Yellow);
+
+    public static void YellowBgLine(string text)
+        => WriteLine(text, ConsoleColor.Black, ConsoleColor.Yellow);
+
     public static void Title(string title)
     {
         Green(title);

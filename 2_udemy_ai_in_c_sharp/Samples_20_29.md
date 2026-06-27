@@ -160,3 +160,11 @@ See on Next Section - Will try workflows to have the appointment app - will impr
 **Important Note:** In above examples what I found tricky is - initial start and links between the agents. 
 - For example in Sample 27 - main agent starts taking appointment details, then passes to appointmnet agent - which does the same, and since the session is not shared - everything starts from start
 - In work flow related examples - hard to go back - will try in next example
+
+### Sample 28 - Optimized Appointment Workflow
+- Added an optimized workflow - each step is managed by a separate executor
+- As it turns out - the agent instructions play a crucial role
+- One of the main issues is how we distribute business logic between code and instructions. For example should we add 
+working hours 9-17 to code + instructions and what if it changes in future - will we know where to change it? Or should we have set of rules as md file - and we test that during start up???
+- workflow is OK'ish but definitely not production ready... Still it glitches a lot and not very reliable. 
+- Overall it follows the workflow which is fine. 

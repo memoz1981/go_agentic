@@ -9,6 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Instructions\Appointment\AppointmentParserAgent.md" />
+    <None Remove="Instructions\Appointment\AppointmentRecorderAgent.md" />
+    <None Remove="Instructions\Appointment\FinalConfirmationAgent.md" />
+    <None Remove="Instructions\Appointment\SlotSelectionAgent.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Instructions\Appointment\AppointmentParserAgent.md" />
+    <EmbeddedResource Include="Instructions\Appointment\AppointmentRecorderAgent.md" />
+    <EmbeddedResource Include="Instructions\Appointment\FinalConfirmationAgent.md" />
+    <EmbeddedResource Include="Instructions\Appointment\SlotSelectionAgent.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.8.0" />
     <PackageReference Include="Microsoft.Agents.AI.Workflows" Version="1.10.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.16" />

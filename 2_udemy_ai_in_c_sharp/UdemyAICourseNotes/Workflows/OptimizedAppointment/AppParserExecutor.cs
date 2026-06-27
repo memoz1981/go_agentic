@@ -5,15 +5,16 @@ using static UdemyAICourseNotes.Helpers.Output;
 
 namespace UdemyAICourseNotes.Workflows.OptimizedAppointment;
 
-internal class AppParserExecutor(AIAgent appointmentParserAgent) : Executor<InitialAppointmentSlim, AppointmentLead>("AppointmentParser")
+internal class AppParserExecutor(AIAgent appointmentParserAgent) 
+    : Executor<InitialAppointmentSlim, AppointmentLead>("AppointmentParser")
 {
     public override async ValueTask<AppointmentLead> HandleAsync(InitialAppointmentSlim message, IWorkflowContext context, CancellationToken cancellationToken = default)
     {
-        GrayLine("Appointment parser parsing message...");
+        YellowBgLine("AppParserExecutor started running");
         var response = await appointmentParserAgent.RunAsync<AppointmentLead>(message.FinalizedRequest);
 
-        GrayLine($"Appointment parser returned request with {response.Result.Slots.Length} possible slots");
-
+        YellowBgLine($"AppParserExecutor finished running with {response.Result.Slots.Length} possible slots");
+        Console.WriteLine();
         return response.Result;
     }
 }

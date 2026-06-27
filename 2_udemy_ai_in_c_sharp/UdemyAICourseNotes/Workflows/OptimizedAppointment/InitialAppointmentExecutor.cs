@@ -1,20 +1,29 @@
 ﻿using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Workflows;
 using UdemyAICourseNotes.Model.Appointment;
+using UdemyAICourseNotes.Samples._20;
 using static UdemyAICourseNotes.Helpers.Output;
 
 namespace UdemyAICourseNotes.Workflows.OptimizedAppointment;
 
 internal class InitialAppointmentExecutor(AIAgent appointmentRecorderAgent) : Executor<string, InitialAppointmentSlim>("appointmentRecorderExecutor")
 {
-    public override async ValueTask<InitialAppointmentSlim> HandleAsync(string message, IWorkflowContext context, CancellationToken cancellationToken = default)
-        => await TakeAppointment(message, appointmentRecorderAgent); 
+    public override async ValueTask<InitialAppointmentSlim> HandleAsync(string message,
+        IWorkflowContext context, CancellationToken cancellationToken = default)
+    {
+        YellowBgLine("InitialAppointmentExecutor started running"); 
+        
+        var result = await TakeAppointment(message, appointmentRecorderAgent);
+
+        YellowBgLine("InitialAppointmentExecutor finished running");
+        Console.WriteLine();
+        return result; 
+    }
 
     private static async Task<InitialAppointmentSlim> TakeAppointment(string message, AIAgent agent)
     {
-        //need to check what is passed if it's run as first executor...
         string input = null; 
-        if (string.IsNullOrWhiteSpace(message))
+        if (string.IsNullOrWhiteSpace(message) || message == _28_Workflows_Optimized.INITIAL_INPUT)
         {
             BlueLine("> Hello how can I help you?");
             Console.Write("> ");
