@@ -19,3 +19,6 @@ b) Thru chat client options - See Sample 31
 - Latency is not guaranteed with default. 
 - My examples were basic - which may be why I didn't observe much difference. 
 
+Note: For some reason ChatServiceTier class has Auto, Default, Flex and Scale static components - but not for Priority 
+and Scale cannot be passed - it gives an exception, as doesn't recognize this service tier... 
+
