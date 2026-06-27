@@ -27,6 +27,7 @@ internal class SlotSelectionExecutor(AIAgent slotSelectionAgent) : Executor<Appo
         var input = $"Following details are available - available slots are found under slots: {serialized}";
         while (true)
         {
+            var resString = (await agent.RunAsync(input)).ToString();
             var result = (await agent.RunAsync<SlotSelectionResultSlim>(input)).Result;
 
             if (result.SlotSelectionStatus != SlotSelectionStatus.ClarificationsRequired)

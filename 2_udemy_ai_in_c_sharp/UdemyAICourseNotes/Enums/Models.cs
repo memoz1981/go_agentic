@@ -16,4 +16,11 @@ public static class Models
         public const string SMALL_3 = "text-embedding-3-small";
         public const string LARGE_3 = "text-embedding-3-large";
     }
+
+    public static class Claude
+    {
+        public const string OPUS_4_8 = "claude-opus-4-8";
+        public const string SONNET_4_6 = "claude-sonnet-4-6";
+        public const string HAIKU_4_5 = "claude-haiku-4-5";
+    }
 }

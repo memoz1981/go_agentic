@@ -168,3 +168,11 @@ See on Next Section - Will try workflows to have the appointment app - will impr
 working hours 9-17 to code + instructions and what if it changes in future - will we know where to change it? Or should we have set of rules as md file - and we test that during start up???
 - workflow is OK'ish but definitely not production ready... Still it glitches a lot and not very reliable. 
 - Overall it follows the workflow which is fine. 
+
+### Sample 29 - Optimized Appointment Workflow using Claude
+- Note that this is not a working solution
+- Claude has restictions with the structured output - and especially using tools and structured output at the same time
+- When structure output asked - Json Schema needs to be defined - which is a limitation of Claude - besides it provided the Json output 
+which then needs to be de-serialized. 
+- Interestingly parser executor could parse the message using same structured output code used for Open AI, which didn't work for Claude 
+- Holding here to continue with the training - will come to this later - hoping to see more details under the section for claude... 

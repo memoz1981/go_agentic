@@ -1,6 +1,6 @@
-﻿using Microsoft.Agents.AI;
+﻿using Anthropic;
+using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
-using ModelContextProtocol.Protocol;
 using OpenAI;
 using OpenAI.Chat;
 using OpenAI.Responses;
@@ -74,6 +74,13 @@ internal class AgentClientFactory
         }
 
         throw new ArgumentOutOfRangeException(); 
+    }
+
+    public static AnthropicClient GetClaudeClient()
+    {
+        var apiKey = SecretsManager.GetApiKey(Enums.Clients.Claude);
+
+        return new AnthropicClient() { ApiKey = apiKey };
     }
 
 #pragma warning disable OPENAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
@@ -179,5 +186,43 @@ internal class AgentClientFactory
         //}
 
         return await next.Invoke(context, cancellationToken);
+    }
+
+    /// <summary>
+    /// Get AI Agent - use only for raw string outputs
+    /// </summary>
+    /// <param name="claudeClient"></param>
+    /// <param name="model"></param>
+    /// <param name="name"></param>
+    /// <param name="instructions"></param>
+    /// <param name="tools"></param>
+    /// <param name="chatHistoryProvider"></param>
+    /// <returns></returns>
+    public static AIAgent GetClaudeAgent(
+        AnthropicClient claudeClient,
+        string model,
+        string name, 
+        string instructions,
+        IList<AITool> tools = null,
+        ChatHistoryProvider chatHistoryProvider = null)
+    {
+        var chatClient = claudeClient.AsIChatClient(model)
+            .AsBuilder()
+            .UseFunctionInvocation()
+            .Build();
+
+        var agentOptions = new ChatClientAgentOptions
+        {
+            Name = name,
+            ChatOptions = new()
+            {
+                Instructions = instructions,
+                Tools = tools,
+                MaxOutputTokens = 4096,
+            },
+            ChatHistoryProvider = chatHistoryProvider
+        };
+
+        return chatClient.AsAIAgent(agentOptions);
     }
 }
