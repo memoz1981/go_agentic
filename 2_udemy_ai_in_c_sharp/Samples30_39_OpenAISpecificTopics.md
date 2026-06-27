@@ -22,3 +22,10 @@ b) Thru chat client options - See Sample 31
 Note: For some reason ChatServiceTier class has Auto, Default, Flex and Scale static components - but not for Priority 
 and Scale cannot be passed - it gives an exception, as doesn't recognize this service tier... 
 
+### Batches - No Sample Code
+- It's possible to send requests in batches to OpenAI which is typically 50% cheaper
+- Batches are sent in format of `*.jsonl` files - which is json list files
+- There are limits around the number of the requests and file size
+- LLM should respond in max 24 hours - but typically it takes shorter - but no guarantees
+- Haven't included an example 
+
