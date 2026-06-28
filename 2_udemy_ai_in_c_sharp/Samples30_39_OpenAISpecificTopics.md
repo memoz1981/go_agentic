@@ -29,3 +29,8 @@ and Scale cannot be passed - it gives an exception, as doesn't recognize this se
 - LLM should respond in max 24 hours - but typically it takes shorter - but no guarantees
 - Haven't included an example 
 
+### Open AI Real-Time API
+- Didn't add a sample for this as didn't want to copy whole code from the training repo below: 
+https://github.com/rwjdk/MicrosoftAgentFrameworkSamples/tree/main/src/OpenAI.RealtimeAPI
+- Will try it once I complete the training... 
+- Basically it's possible to use stream from/to realtime API
