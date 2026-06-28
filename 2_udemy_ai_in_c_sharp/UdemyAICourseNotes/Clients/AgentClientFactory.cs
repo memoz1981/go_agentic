@@ -238,6 +238,19 @@ internal class AgentClientFactory
         return chatClient.AsAIAgent(agentOptions);
     }
 
+    public static AIAgent GetClaudeAgent(
+        AnthropicClient claudeClient,
+        string model,
+        ChatClientAgentOptions chatClientAgentOptions)
+    {
+        var chatClient = claudeClient.AsIChatClient(model)
+            .AsBuilder()
+            .UseFunctionInvocation()
+            .Build();
+
+        return chatClient.AsAIAgent(chatClientAgentOptions);
+    }
+
     public static AIAgent GetGeminiAgent(
         IChatClient client, 
         string name = DEFAULT_NAME,
