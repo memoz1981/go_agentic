@@ -9,3 +9,9 @@ visit http://localhost:5000/devui/
 - Examples of agent/workflow registrations are available under instructor github link below: 
 https://github.com/rwjdk/MicrosoftAgentFrameworkSamples/blob/main/src/DevUI/Program.cs
 
+### AG-UI Support 
+- Makes streaming between client/server possible
+- Can add proxy agents to the client which can call tools (or perhaps call server tools???)
+- Code is under following github repos, not going to add an example - as we need to different apps running as server/client
+https://github.com/rwjdk/MicrosoftAgentFrameworkSamples/tree/main/src/AgentUserInteraction.Server
+https://github.com/rwjdk/MicrosoftAgentFrameworkSamples/tree/main/src/AgentUserInteraction.Client
