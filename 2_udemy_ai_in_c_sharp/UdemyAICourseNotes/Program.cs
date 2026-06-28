@@ -41,14 +41,15 @@ var sample30 = new _30_Service_Tiers();
 
 var sample40 = new _40_Basic_Gemini_Agent();
 var sample41 = new _41_List_Models();
-var sample42 = new _42_Reasoning(); 
+var sample42 = new _42_Reasoning();
+var sample43 = new _43_Google_Web_Search_Tool(); 
 
 BaseSample[] samples = 
     [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8, sample9,
       sample10, sample11, sample12, sample13, sample14, sample15, sample16, sample17, sample18, sample19,
       sample20, sample21, sample22, sample23, sample24, sample25, sample26, sample27, sample28, sample29,
       sample30, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY,
-      sample40, sample41, sample42];
+      sample40, sample41, sample42, sample43];
 
 Red("Type the index of the sample to continue:");
 Console.WriteLine();
