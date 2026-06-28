@@ -4,6 +4,7 @@ using UdemyAICourseNotes.Samples._20;
 using UdemyAICourseNotes.Samples._30_Open_AI_Topics;
 using UdemyAICourseNotes.Samples._40_Gemini_Topics;
 using UdemyAICourseNotes.Samples._50_Anthropic_Topics;
+using UdemyAICourseNotes.Samples._60;
 using static UdemyAICourseNotes.Helpers.Output; 
 
 var sample1 = new _1_Basic_Chat_Client();
@@ -46,7 +47,9 @@ var sample42 = new _42_Reasoning();
 var sample43 = new _43_Google_Web_Search_Tool();
 var sample44 = new _44_Google_Maps();
 
-var sample50 = new _50_Reasoning(); 
+var sample50 = new _50_Reasoning();
+
+var sample60 = new _60_Dev_UI(); 
 
 BaseSample[] samples = 
     [ sample1, sample2, sample3, sample4, sample5, sample6, sample7, sample8, sample9,
@@ -55,6 +58,7 @@ BaseSample[] samples =
       sample30, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY,
       sample40, sample41, sample42, sample43, sample44, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY,
       sample50, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, BaseSample.EMPTY, 
+      sample60
     ];
 
 Red("Type the index of the sample to continue:");

@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Instructions\Appointment\AppointmentParserAgent.md" />
     <EmbeddedResource Include="Instructions\Appointment\AppointmentRecorderAgent.md" />
     <EmbeddedResource Include="Instructions\Appointment\FinalConfirmationAgent.md" />
@@ -25,10 +29,12 @@
   <ItemGroup>
     <PackageReference Include="Anthropic" Version="12.31.0" />
     <PackageReference Include="Google.GenAI" Version="1.12.0" />
+    <PackageReference Include="Microsoft.Agents.AI.DevUI" Version="1.11.1-preview.260625.1" />
     <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.8.0" />
-    <PackageReference Include="Microsoft.Agents.AI.Workflows" Version="1.10.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.16" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.16" />
+    <PackageReference Include="Microsoft.Agents.AI.Workflows" Version="1.11.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.SqliteVec" Version="1.74.0-preview" />
     <PackageReference Include="ModelContextProtocol" Version="1.3.0" />
   </ItemGroup>
