@@ -22,3 +22,8 @@ b) using the "Google way" - by passing to chat client agent options
 - We ask agents to return response, date and link - as expected the one without tool returns the LLM model release date with old new
 - Agents with tools return correctly. 
 - Google is generous - seems that monthly 1000 web searches are free (for paid tiers)
+
+### Sample 44 - Google Maps Integration
+- Google AI comes with built in Google Maps tool - just need to enable it to use
+- 5000 search are free / month for free tier
+- A lot of metadata (non-structured) can be retrieved
