@@ -18,6 +18,7 @@ internal class SecretsManager
             Enums.Clients.OpenAI => apiKeys.OpenAI,
             Enums.Clients.Github => apiKeys.Github,
             Enums.Clients.Claude => apiKeys.Claude,
+            Enums.Clients.Gemini => apiKeys.Gemini,
             _ => throw new ArgumentOutOfRangeException()
         };
     }

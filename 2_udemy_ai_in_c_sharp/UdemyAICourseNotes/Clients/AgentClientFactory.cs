@@ -1,4 +1,5 @@
 ﻿using Anthropic;
+using Google.GenAI;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using OpenAI;
@@ -81,6 +82,17 @@ internal class AgentClientFactory
         var apiKey = SecretsManager.GetApiKey(Enums.Clients.Claude);
 
         return new AnthropicClient() { ApiKey = apiKey };
+    }
+
+    public static IChatClient GetGeminiClient(string model)
+    {
+        var apiKey = SecretsManager.GetApiKey(Enums.Clients.Gemini);
+        var geminiClient = new Client(apiKey: apiKey);
+
+        return geminiClient.AsIChatClient(model)
+            .AsBuilder()
+            .UseFunctionInvocation()
+            .Build(); 
     }
 
 #pragma warning disable OPENAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
@@ -224,5 +236,25 @@ internal class AgentClientFactory
         };
 
         return chatClient.AsAIAgent(agentOptions);
+    }
+
+    public static AIAgent GetGeminiAgent(
+        IChatClient client, 
+        string name = DEFAULT_NAME,
+        string instructions = DEFAULT_INSTRUCTIONS, 
+        IList<AITool> tools = null, 
+        ChatHistoryProvider chatHistoryProvider = null)
+    {
+        var chatClientAgentOptions = new ChatClientAgentOptions()
+        {
+            Name = name, 
+            ChatOptions = new() 
+            {
+                Instructions = instructions,
+                Tools = tools
+            }
+        };
+
+        return new ChatClientAgent(client, chatClientAgentOptions); 
     }
 }

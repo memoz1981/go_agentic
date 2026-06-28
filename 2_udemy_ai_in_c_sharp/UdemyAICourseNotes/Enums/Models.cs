@@ -23,4 +23,11 @@ public static class Models
         public const string SONNET_4_6 = "claude-sonnet-4-6";
         public const string HAIKU_4_5 = "claude-haiku-4-5";
     }
+
+    public static class Gemini
+    {
+        public const string GEMINI_3_5_FLASH = "gemini-3.5-flash";
+        public const string GEMINI_3_5_FLASH_LITE = "gemini-3.1-flash-lite";
+        public const string GEMINI_3_1_PRO_PREVIEW = "gemini-3.1-pro-preview";
+    }
 }
