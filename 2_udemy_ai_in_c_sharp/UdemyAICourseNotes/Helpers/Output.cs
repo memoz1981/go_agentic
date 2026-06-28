@@ -13,6 +13,16 @@ public static class Output
         WriteLine(message, ConsoleColor.Red);
     }
 
+    public static void White(string message)
+    {
+        Write(message, ConsoleColor.White);
+    }
+
+    public static void WhiteLine(string message)
+    {
+        WriteLine(message, ConsoleColor.White);
+    }
+
     public static void Green(string message)
     {
         Write(message, ConsoleColor.Green);

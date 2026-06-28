@@ -252,9 +252,15 @@ internal class AgentClientFactory
             {
                 Instructions = instructions,
                 Tools = tools
-            }
+            },
+            ChatHistoryProvider = chatHistoryProvider
         };
 
         return new ChatClientAgent(client, chatClientAgentOptions); 
     }
+
+    public static AIAgent GetGeminiAgent(
+        IChatClient client,
+        ChatClientAgentOptions chatClientAgentOptions)
+        => new ChatClientAgent(client, chatClientAgentOptions);
 }
